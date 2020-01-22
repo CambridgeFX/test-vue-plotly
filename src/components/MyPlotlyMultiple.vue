@@ -32,6 +32,8 @@
         <div><Plotly :data="cdatadist6M" :layout="layoutdist6M" :display-mode-bar="false"></Plotly></div>
         <div><Plotly :data="cdatadist12M" :layout="layoutdist12M" :display-mode-bar="false"></Plotly></div>
       </div>
+      <br /><br />
+      <Plotly :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
     </div>
   </div>
 </template>
@@ -47,12 +49,15 @@ export default {
   },
   data () {
     return {
+      // JSON Data
       jsondataspot: null,
       jsondataspothist: null,
       jsondataforward: null,
       jsondataforwardcurve: null,
       jsondatavolatility: null,
       jsondatadistcalc: null,
+      jsondataforecast: null,
+      // Chart data and layout objects
       cdataspot: [{
         x: [],
         y: [],
@@ -113,6 +118,15 @@ export default {
       layoutdist12M: {
         title: 'USDCAD 12 Mo Distribution'
       },
+      cdataforecast: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutforecast: {
+        title: 'USDCAD 12 Mo Outlook'
+      },
+      // Other data
       loaded: false,
       currpairlist: ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"],
       selectedCurr: "Select here",
@@ -143,6 +157,7 @@ export default {
       var fpathforwardcurve = "";
       var fpathvolatility = "";
       var fpathdistcalc = "";
+      var fpathforecast = "";
       let self = this;
 
       this.loaded = false;
@@ -160,6 +175,7 @@ export default {
         fpathforwardcurve = "../../static/forwardcurve_" + selected.toLowerCase() + ".json";
         fpathvolatility = "../../static/volatility_" + selected.toLowerCase() + ".json";
         fpathdistcalc = "../../static/distcalc_" + selected.toLowerCase() + ".json";
+        fpathforecast = "../../static/forecast_" + selected.toLowerCase() + ".json";
       }
 
       const axiosspot = axios.get(fpathspot);
@@ -168,14 +184,16 @@ export default {
       const axiosforwardcurve = axios.get(fpathforwardcurve);
       const axiosvolatility = axios.get(fpathvolatility);
       const axiosdistcalc = axios.get(fpathdistcalc);
+      const axiosforecast = axios.get(fpathforecast);
 
-      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc]).then(axios.spread((...responses) => {
+      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast]).then(axios.spread((...responses) => {
         this.jsondataspot = responses[0].data;
         this.jsondataforward = responses[1].data;
         this.jsondataforwardcurve = responses[2].data;
         this.jsondataspothist = responses[3].data;
         this.jsondatavolatility = responses[4].data;
         this.jsondatadistcalc = responses[5].data;
+        this.jsondataforecast = responses[6].data;
         this.loadJSONData();
       })).catch(errors => {
         console.log(errors);
@@ -189,6 +207,7 @@ export default {
       var y = [];
       var datacolhist = [];
       var datacoldist = [];
+      var datacolcast = [];
       var selected = this.selectedCurr;
       var horizon = this.selectedHorizon;
       var chartlbl = "";
@@ -411,20 +430,167 @@ export default {
         }
       };
       
+      // Forecast Fan Chart
+      var first = true;
+      for(var i in this.jsondataforecast) {
+        x = [];
+        y = [];
+        var distname = this.jsondataforecast[i].dist
+        if (distname == "BUDGET RATE" || distname == "THRESHOLD" || distname == "17 TIMES OUT OF 20") {
+          // Hide these datapoints, do not process!
+        } else {
+          // Valid datapoints, process!
+          for(var j in this.jsondataforecast[i]) {
+            if (distname == "MAX" || distname == "MIN") {
+              if(j != "dist" && j != "0") {
+                x.push(parseInt(j))
+                y.push(this.jsondataforecast[i][j])
+              }
+            } else {
+              if(j != "dist") {
+                x.push(parseInt(j))
+                y.push(this.jsondataforecast[i][j])
+              }
+            }
+          }
+          if (distname == "ACTUAL EXPIRATION") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'markers',
+              marker: {
+                color: 'rgb(243, 139, 0)',
+                size: 6
+              },
+              hoverinfo: "all",
+              showlegend: false,
+            };
+          } else if (distname == "MAX") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+              },
+              hoverinfo: "all",
+              showlegend: false,
+            };
+          } else if (distname == "MIN") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+              },
+              opacity: 0.5,
+              hoverinfo: "all",
+              showlegend: false,
+            };
+          } else if (distname == "CAMBRIDGE FORECAST") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+                dash: "dot",
+              },
+              hoverinfo: "all",
+            };
+          } else if (distname == "CONSENSUS FORECAST") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+                dash: "dash",
+              },
+              hoverinfo: "all",
+            };
+          } else if (distname == "3 TIMES OUT OF 4") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+              },
+              opacity: 0.7,
+              hoverinfo: "all",
+            };
+          } else if (distname == "9 TIMES OUT OF 10") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+              },
+              opacity: 0.5,
+              hoverinfo: "all",
+            };
+          } else if (distname == "19 TIMES OUT OF 20") {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+              },
+              opacity: 0.3,
+              hoverinfo: "all",
+            };
+          } else {
+            var distdata = {
+              name: distname,
+              x: x,
+              y: y,
+              type: "scatter",
+              mode: 'lines',
+              line: {
+                color: 'rgb(62, 17, 81)',
+                size: 12
+              },
+              hoverinfo: "all"
+            };
+          }
+          datacolcast.push(distdata);
+        }
+      };
+      chartlbl = selected + ' 12 Mo Outlook';
+      this.cdataforecast = datacolcast;
+      this.layoutforecast = {
+        title: chartlbl,
+        // xaxis: {
+        //   autorange: true,
+        //   showgrid: false,
+        //   zeroline: true,
+        //   showline: true,
+        //   autotick: true,
+        //   ticks: '',
+        //   showticklabels: false
+        // },
+      }
       
-      // this.cdataspothistory = datacolhist;
-      // this.layoutspothistory = {
-      //   title: chartlbl,
-      //   xaxis: {
-      //     autorange: true,
-      //     showgrid: false,
-      //     zeroline: true,
-      //     showline: true,
-      //     autotick: true,
-      //     ticks: '',
-      //     showticklabels: false
-      //   },
-      // }
     }
   }
 }
