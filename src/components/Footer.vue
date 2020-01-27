@@ -19,6 +19,7 @@ export default {
 
 <style>
 #footer {
+  font-family: Roboto, Verdana;
   margin-bottom: 3em;
 }
 
