@@ -1,0 +1,39 @@
+<template>
+  <div id="footer">
+    <div class="hr"></div>
+    <div class="container">
+      <p>
+        <span>
+          <strong>Market Analysis - Currency Risk Analytics</strong>. Copyright 2020. 
+        </span>
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Footer'
+}
+</script>
+
+<style>
+#footer {
+  margin-bottom: 3em;
+}
+
+#footer .icon {
+  height: 23px;
+  display: inline-block;
+  margin-bottom: -6px;
+}
+
+.hr {
+  border-bottom: 1px solid #dbdbdb;
+  margin: 3em 0;
+}
+
+#footer p {
+  font-size: 15px;
+  color: #767676 !important;
+}

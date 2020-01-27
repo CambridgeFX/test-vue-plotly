@@ -3,12 +3,17 @@
     <img src="./assets/web_logo.png">
     <br /><br /><br />
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer"
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Footer
+  },
 }
 </script>
 
