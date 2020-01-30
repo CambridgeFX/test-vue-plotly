@@ -1,10 +1,10 @@
 <template>
   <div id="ChartPage">
     <div id="ControlPanel">
-      <h1>Monthly Market Update - December 2019</h1>
+      <h1>Monthly Market Update - January 2019</h1>
       <br />
       Select Currency Pair: 
-      <select required id="dropDown" v-model="selectedCurr" @change="onCurrChange($event)">
+      <select required id="dropDown" v-model="selectedCurr" @change="onCurrChange()">
         <option disabled>Select here</option>
         <option v-for="curr in currpairlist" :key="curr">{{ curr }}</option>
       </select>
@@ -13,9 +13,9 @@
     <div v-if="loaded">
       <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly>
       <br />
-      <input type="radio" id="five" value="five" v-model="selectedHorizon" @change="onCurrChange($event)">
+      <input type="radio" id="five" value="five" v-model="selectedHorizon" @change="onCurrChange()">
       <label for="five">5 Years</label>
-      <input type="radio" id="twenty" value="twenty" v-model="selectedHorizon" @change="onCurrChange($event)">
+      <input type="radio" id="twenty" value="twenty" v-model="selectedHorizon" @change="onCurrChange()">
       <label for="twenty">20 Years</label>
       <br /><br />
       <Plotly :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
@@ -138,7 +138,7 @@ export default {
     
   },
   methods: {
-    onCurrChange(event) {
+    onCurrChange() {
       // When select input changes, reload data and update charts
       var selected = this.selectedCurr;
       if (selected == "Select here") {

@@ -5,6 +5,9 @@ import MyPlotly from '@/components/MyPlotly'
 import JSONParser from '@/components/JSONParser'
 import MyPlotlyAxios from '@/components/MyPlotlyAxios'
 import MyPlotlyMultiple from '@/components/MyPlotlyMultiple'
+import MaterialTest from '@/components/MaterialTest'
+import MyPlotlyMaterial from '@/components/MyPlotlyMaterial'
+import Disclosures from '@/components/Disclosures'
 
 Vue.use(Router)
 
@@ -12,8 +15,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MyPlotlyMultiple',
-      component: MyPlotlyMultiple
+      name: 'MyPlotlyMaterial',
+      component: MyPlotlyMaterial
+    },
+    {
+      path: '/disclosures/',
+      name: 'Disclosures',
+      component: Disclosures
     }
   ]
 })

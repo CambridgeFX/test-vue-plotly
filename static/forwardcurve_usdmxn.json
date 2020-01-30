@@ -1,0 +1,98 @@
+[
+  {
+    "month": "M1",
+    "forward": 888.000000000027
+  },
+  {
+    "month": "M2",
+    "forward": 1706
+  },
+  {
+    "month": "M3",
+    "forward": 2556.50000000003
+  },
+  {
+    "month": "M4",
+    "forward": 3389.91666666669
+  },
+  {
+    "month": "M5",
+    "forward": 4223.33333333334
+  },
+  {
+    "month": "M6",
+    "forward": 5056.75
+  },
+  {
+    "month": "M7",
+    "forward": 5901.83333333332
+  },
+  {
+    "month": "M8",
+    "forward": 6746.91666666664
+  },
+  {
+    "month": "M9",
+    "forward": 7592
+  },
+  {
+    "month": "M10",
+    "forward": 8425.00000000001
+  },
+  {
+    "month": "M11",
+    "forward": 9258.00000000002
+  },
+  {
+    "month": "M12",
+    "forward": 10091
+  },
+  {
+    "month": "M13",
+    "forward": 10892.02
+  },
+  {
+    "month": "M14",
+    "forward": 11693.04
+  },
+  {
+    "month": "M15",
+    "forward": 12494.06
+  },
+  {
+    "month": "M16",
+    "forward": 13295.08
+  },
+  {
+    "month": "M17",
+    "forward": 14096.1
+  },
+  {
+    "month": "M18",
+    "forward": 14897.12
+  },
+  {
+    "month": "M19",
+    "forward": 15717.2666666667
+  },
+  {
+    "month": "M20",
+    "forward": 16537.4133333333
+  },
+  {
+    "month": "M21",
+    "forward": 17357.56
+  },
+  {
+    "month": "M22",
+    "forward": 18177.7066666666
+  },
+  {
+    "month": "M23",
+    "forward": 18997.8533333333
+  },
+  {
+    "month": "M24",
+    "forward": 19818
+  }
+]

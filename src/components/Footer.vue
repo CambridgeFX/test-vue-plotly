@@ -2,11 +2,13 @@
   <div id="footer">
     <div class="hr"></div>
     <div class="container">
+      <br /><br />
       <p>
         <span>
           <strong>Market Analysis - Currency Risk Analytics</strong>. Copyright 2020. 
         </span>
       </p>
+      <br /><br />
     </div>
   </div>
 </template>

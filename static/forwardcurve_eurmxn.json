@@ -1,98 +1,98 @@
 [
   {
     "month": "M1",
-    "forward": 1389.67239999999
+    "forward": 1374.21290000002
   },
   {
     "month": "M2",
-    "forward": 2824.45259999999
+    "forward": 2639.64990000002
   },
   {
     "month": "M3",
-    "forward": 4085.95630000001
+    "forward": 4006.57080000002
   },
   {
     "month": "M4",
-    "forward": 5458.83153333335
+    "forward": 5324.2937666667
   },
   {
     "month": "M5",
-    "forward": 6831.7067666667
+    "forward": 6642.01673333338
   },
   {
     "month": "M6",
-    "forward": 8204.58200000001
+    "forward": 7959.73970000002
   },
   {
     "month": "M7",
-    "forward": 9545.10513333336
+    "forward": 9293.9667666667
   },
   {
     "month": "M8",
-    "forward": 10885.6282666667
+    "forward": 10628.1938333334
   },
   {
     "month": "M9",
-    "forward": 12226.1514
+    "forward": 11962.4209
   },
   {
     "month": "M10",
-    "forward": 13486.2969
+    "forward": 13299.6312
   },
   {
     "month": "M11",
-    "forward": 14746.4424
+    "forward": 14636.8415
   },
   {
     "month": "M12",
-    "forward": 16006.5879
+    "forward": 15974.0518
   },
   {
     "month": "M13",
-    "forward": 17243.9873166667
+    "forward": 17249.7599666667
   },
   {
     "month": "M14",
-    "forward": 18481.3867333333
+    "forward": 18525.4681333334
   },
   {
     "month": "M15",
-    "forward": 19718.78615
+    "forward": 19801.1763000001
   },
   {
     "month": "M16",
-    "forward": 20956.1855666667
+    "forward": 21076.8844666667
   },
   {
     "month": "M17",
-    "forward": 22193.5849833334
+    "forward": 22352.5926333334
   },
   {
     "month": "M18",
-    "forward": 23430.9844
+    "forward": 23628.3008
   },
   {
     "month": "M19",
-    "forward": 24695.91245
+    "forward": 24958.96095
   },
   {
     "month": "M20",
-    "forward": 25960.8405
+    "forward": 26289.6211
   },
   {
     "month": "M21",
-    "forward": 27225.76855
+    "forward": 27620.28125
   },
   {
     "month": "M22",
-    "forward": 28490.6965999999
+    "forward": 28950.9414
   },
   {
     "month": "M23",
-    "forward": 29755.6246499999
+    "forward": 30281.6015500001
   },
   {
     "month": "M24",
-    "forward": 31020.5527
+    "forward": 31612.2617
   }
 ]
