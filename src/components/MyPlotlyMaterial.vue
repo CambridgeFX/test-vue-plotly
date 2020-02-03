@@ -39,13 +39,16 @@
       <br /><br />
       <Plotly :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
       <MdDialog :md-active.sync="openMethodology">
-        <MdDialogTitle>Fan Chart Methodology</MdDialogTitle>
-        <p>FAN CHART ANALYSIS PROVIDES A measure of the range of uncertainty SURROUNDING THE EXCHANGE RATE OUTLOOK. As MOVES become increasingly uncertain further into the future, ranges spread out.</p>
-        <p><strong>RANGE CALCULATIONS</strong> ARE BASED ON 30 YEARS OF EXCHANGE RATE DATA AND ARE DESIGNED TO AGNOSTICALLY ILLUSTRATE THE LIKELIHOOD OF A SUSTAINED MOVE BEYOND GIVEN LEVELS. FOR EXAMPLE, UPPER AND LOWER LINES LABELED “9 OUT OF 10 TIMES” SUGGEST THAT EXCHANGE RATES ARE EXPECTED TO STAY WITHIN THIS RANGE IN 90% OF SIMILAR TIME PERIODS - WHILE IN 10% OF SIMILAR TIME PERIODS, EXCHANGE RATES MOVES EXCEED THESE LEVELS.</p>
-        <p><strong>Please Note:</strong> RANGES depicted are generalized measures of probability based upon a parametric/ delta-normal analysis of a 30-year historical distribution of market movements and are used to estimate the exchange rate uncertainties associated with different currencies and time periods. calculations do not take all types of risks into account (e.g. liquidity risk, regulatory risk, sovereign risk, etc.). Both larger and smaller movements than those outlined are possible. In currency markets specifically, major political and economic events can trigger extreme moves.</p>
-        <p><strong>CAMBRIDGE FORECAST:</strong> CAMBRIDGE’S EXCHANGE RATE PROJECTION.</p>
-        <p><strong>CONSENSUS FORECAST:</strong> FORECAST RESULTS DERIVED FROM MONTHLY BLOOMBERG AND REUTERS POLLS.</p>
+        <div class="paradialog">
+          <MdDialogTitle>Fan Chart Methodology</MdDialogTitle>
+          <p>FAN CHART ANALYSIS PROVIDES A measure of the range of uncertainty SURROUNDING THE EXCHANGE RATE OUTLOOK. As MOVES become increasingly uncertain further into the future, ranges spread out.</p>
+          <p><strong>RANGE CALCULATIONS</strong> ARE BASED ON 30 YEARS OF EXCHANGE RATE DATA AND ARE DESIGNED TO AGNOSTICALLY ILLUSTRATE THE LIKELIHOOD OF A SUSTAINED MOVE BEYOND GIVEN LEVELS. FOR EXAMPLE, UPPER AND LOWER LINES LABELED “9 OUT OF 10 TIMES” SUGGEST THAT EXCHANGE RATES ARE EXPECTED TO STAY WITHIN THIS RANGE IN 90% OF SIMILAR TIME PERIODS - WHILE IN 10% OF SIMILAR TIME PERIODS, EXCHANGE RATES MOVES EXCEED THESE LEVELS.</p>
+          <p><strong>Please Note:</strong> RANGES depicted are generalized measures of probability based upon a parametric/ delta-normal analysis of a 30-year historical distribution of market movements and are used to estimate the exchange rate uncertainties associated with different currencies and time periods. calculations do not take all types of risks into account (e.g. liquidity risk, regulatory risk, sovereign risk, etc.). Both larger and smaller movements than those outlined are possible. In currency markets specifically, major political and economic events can trigger extreme moves.</p>
+          <p><strong>CAMBRIDGE FORECAST:</strong> CAMBRIDGE’S EXCHANGE RATE PROJECTION.</p>
+          <p><strong>CONSENSUS FORECAST:</strong> FORECAST RESULTS DERIVED FROM MONTHLY BLOOMBERG AND REUTERS POLLS.</p>
+        </div>
       </MdDialog>
+      <br />
       <MdButton class="md-raised md-primary" @click="openMethodology = true">Fan Chart Methodology</MdButton>
     </div>
   </div>
@@ -624,5 +627,12 @@ export default {
 .flex-container {
   display: flex;
   justify-content: center;
+}
+.paradialog {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
 }
 </style>
