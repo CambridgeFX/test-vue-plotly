@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <img id="logo" src="./assets/CMG_logo_2c_rgb_pos.png">
-    <br /><br /><br />
+    <Header/>
     <router-view/>
     <Footer/>
   </div>
 </template>
 
 <script>
+import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 export default {
   name: 'App',
   components: {
+    Header,
     Footer
   },
 }
@@ -30,8 +31,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-#logo {
-  height: 200px;
 }
 </style>

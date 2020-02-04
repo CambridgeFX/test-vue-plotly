@@ -1,30 +1,23 @@
 <template>
-  <div id="footer">
-    <div class="hr"></div>
-    <div class="container">
-      <p>
-        <span>
-          <strong>Market Analysis - Currency Risk Analytics</strong>. Copyright 2020. 
-        </span>
-      </p>
-      <br /><br />
-    </div>
+  <div id="header">
+    <img id="logo" src="@/assets/CMG_logo_2c_rgb_pos.png">
+    <br /><br /><br />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Header'
 }
 </script>
 
 <style>
-#footer {
+#header {
   font-family: Roboto, Verdana;
   margin-bottom: 3em;
 }
 
-#footer .icon {
+#header .icon {
   height: 23px;
   display: inline-block;
   margin-bottom: -6px;
@@ -35,8 +28,12 @@ export default {
   margin: 3em 0;
 }
 
-#footer p {
+#header p {
   font-size: 15px;
   color: #767676 !important;
+}
+
+#logo {
+  height: 150px;
 }
 </style>
