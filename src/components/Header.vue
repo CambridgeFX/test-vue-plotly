@@ -33,6 +33,11 @@ export default {
   color: #767676 !important;
 }
 
+#toolbar{
+  position:sticky;
+  top:1px;
+}
+
 #logo {
   height: 150px;
 }

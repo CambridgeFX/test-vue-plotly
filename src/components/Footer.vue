@@ -4,10 +4,9 @@
     <div class="container">
       <p>
         <span>
-          <strong>Market Analysis - Currency Risk Analytics</strong>. Copyright 2020. 
+          <strong>Market Analysis - Currency Risk Analytics</strong>. &#169; 2020. 
         </span>
       </p>
-      <br /><br />
     </div>
   </div>
 </template>
