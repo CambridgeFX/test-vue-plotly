@@ -15,12 +15,10 @@
     <div v-if="loaded">
       <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly>
       <br />
-      <input type="radio" id="five" value="five" v-model="selectedHorizon" @change="onCurrChange()">
-      <label for="five">5 Years</label>
-      <input type="radio" id="twenty" value="twenty" v-model="selectedHorizon" @change="onCurrChange()">
-      <label for="twenty">20 Years</label>
-      <!-- <MdRadio v-model="selectedHorizon" :value="five">5 Years</MdRadio>
-      <MdRadio v-model="selectedHorizon" :value="twenty">10 Years</MdRadio> -->
+      <div>
+        <MdRadio v-model="selectedHorizon" value="five" @change="onCurrChange()">5 Years</MdRadio>
+        <MdRadio v-model="selectedHorizon" value="twenty" @change="onCurrChange()">20 Years</MdRadio>
+      </div>
       <br /><br />
       <Plotly :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
       <br /><br />
@@ -50,6 +48,8 @@
       </MdDialog>
       <br />
       <MdButton class="md-raised md-primary" @click="openMethodology = true">Fan Chart Methodology</MdButton>
+      <br /><br />
+      <div><span>Data last updated: {{ jsondatamaster.DateStamp }} </span></div>
     </div>
   </div>
 </template>
@@ -58,6 +58,8 @@
 import { Plotly } from 'vue-plotly'
 import axios from 'axios'
 import { MdField, MdSelect, MdOption } from 'vue-material/dist/components/MdField'
+// Import data master at the beginning!
+import data_master from '../../static/data_master.json'
 
 export default {
   name: 'MyPlotlyMultiple',
@@ -67,6 +69,7 @@ export default {
   data () {
     return {
       // JSON Data
+      jsondatamaster: data_master,
       jsondataspot: null,
       jsondataspothist: null,
       jsondataforward: null,
@@ -257,7 +260,8 @@ export default {
         type: 'scatter',
         line: {
           color: 'rgb(62, 17, 81)'
-        }
+        },
+        hovertemplate: '1 ' + selected.substring(0,3) + ' = %{y} '+ selected.substring(3) + '<extra></extra>',
       }]
       this.layoutspot = {
         title: chartlbl

@@ -4,8 +4,8 @@
       <MdAppToolbar>
         <a href="/"><img id="logo" src="@/assets/web_logo_light.png"></a>
         <div class="md-toolbar-section-end">
-          <md-button to="/">Home</md-button>
-          <md-button to="/disclosures/" class="md-primary">Disclosures</md-button>
+          <md-button to="/" class="md-primary">Home</md-button>
+          <md-button to="/disclosures/">Disclosures</md-button>
         </div>
       </MdAppToolbar>
       <MdAppContent>
