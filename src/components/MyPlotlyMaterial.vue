@@ -1,6 +1,6 @@
 <template>
   <div id="ChartPage">
-    <h1>Monthly Market Update - January 2019</h1>
+    <h1>Monthly Market Update - {{ jsondatamaster.Period }}</h1>
     <br />
     <div class="md-layout md-gutter md-alignment-top-center">
       <div class="md-layout-item md-size-20">
@@ -16,8 +16,8 @@
       <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly>
       <br />
       <div>
-        <MdRadio v-model="selectedHorizon" value="five" @change="onCurrChange()">5 Years</MdRadio>
-        <MdRadio v-model="selectedHorizon" value="twenty" @change="onCurrChange()">20 Years</MdRadio>
+        <MdRadio v-model="selectedHorizon" value="five" class="md-primary" @change="onCurrChange()">5 Years</MdRadio>
+        <MdRadio v-model="selectedHorizon" value="twenty" class="md-primary" @change="onCurrChange()">20 Years</MdRadio>
       </div>
       <br /><br />
       <Plotly :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
@@ -264,7 +264,14 @@ export default {
         hovertemplate: '1 ' + selected.substring(0,3) + ' = %{y} '+ selected.substring(3) + '<extra></extra>',
       }]
       this.layoutspot = {
-        title: chartlbl
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        }
       }
 
       // Forward history
@@ -284,7 +291,14 @@ export default {
         }
       }]
       this.layoutforward = {
-        title: chartlbl
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        }
       }
 
       // Forward curve
@@ -304,7 +318,14 @@ export default {
         }
       }]
       this.layoutforwardcurve = {
-        title: chartlbl
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        }
       }
 
       // Implied Volatility
@@ -324,7 +345,14 @@ export default {
         }
       }]
       this.layoutvolatility = {
-        title: chartlbl
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        }
       }
 
       // Spot Return History
@@ -373,7 +401,14 @@ export default {
       chartlbl = selected + ' 1 Yr Spot Return History';
       this.cdataspothistory = datacolhist;
       this.layoutspothistory = {
-        title: chartlbl,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
         xaxis: {
           autorange: true,
           showgrid: false,
@@ -440,21 +475,42 @@ export default {
             chartlbl = selected + ' 3 Mo Distribution';
             this.cdatadist3M = datacoldist;
             this.layoutdist3M = {
-              title: chartlbl,
+              title: {
+                text: chartlbl,
+                font: {
+                  family: 'Roboto',
+                  size: 18,
+                  color: '#350942'
+                }
+              },
               width: 400,
             }
           } else if (distname.substring(0,3) == "6M ") {
             chartlbl = selected + ' 6 Mo Distribution';
             this.cdatadist6M = datacoldist;
             this.layoutdist6M = {
-              title: chartlbl,
+              title: {
+                text: chartlbl,
+                font: {
+                  family: 'Roboto',
+                  size: 18,
+                  color: '#350942'
+                }
+              },
               width: 400,
             }
           } else {
             chartlbl = selected + ' 12 Mo Distribution';
             this.cdatadist12M = datacoldist;
             this.layoutdist12M = {
-              title: chartlbl,
+              title: {
+                text: chartlbl,
+                font: {
+                  family: 'Roboto',
+                  size: 18,
+                  color: '#350942'
+                }
+              },
               width: 400,
             }
           }
@@ -610,7 +666,14 @@ export default {
       chartlbl = selected + ' 12 Mo Outlook';
       this.cdataforecast = datacolcast;
       this.layoutforecast = {
-        title: chartlbl,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
         // xaxis: {
         //   autorange: true,
         //   showgrid: false,
@@ -638,5 +701,8 @@ export default {
   padding-left: 20px;
   padding-right: 20px;
   text-align: left;
+}
+h1 {
+  color: rgb(59, 9, 66);
 }
 </style>
