@@ -13,7 +13,7 @@
     </div>
     <br /><br />
     <div v-if="loaded">
-      <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly>
+      <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly> 
       <br />
       <div>
         <MdRadio v-model="selectedHorizon" value="five" class="md-primary" @change="onCurrChange()">5 Years</MdRadio>
@@ -271,7 +271,39 @@ export default {
             size: 18,
             color: '#350942'
           }
-        }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Spot Rate',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Federal Reserves, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
       }
 
       // Forward history
@@ -288,7 +320,8 @@ export default {
         type: 'scatter',
         line: {
           color: 'rgb(62, 17, 81)'
-        }
+        },
+        hovertemplate: '%{y:.2f}<extra></extra>',
       }]
       this.layoutforward = {
         title: {
@@ -298,7 +331,39 @@ export default {
             size: 18,
             color: '#350942'
           }
-        }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Forward Rate',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.0'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
       }
 
       // Forward curve
@@ -325,7 +390,17 @@ export default {
             size: 18,
             color: '#350942'
           }
-        }
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 0,
+          xanchor: 'left',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
       }
 
       // Implied Volatility
@@ -352,7 +427,17 @@ export default {
             size: 18,
             color: '#350942'
           }
-        }
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 0,
+          xanchor: 'left',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
       }
 
       // Spot Return History
@@ -378,7 +463,7 @@ export default {
               color: 'rgb(62, 17, 81)',
               size: 12
             },
-            hoverinfo: "y"
+            hovertemplate: '%{y}',
           };
           first = false;
         } else {
@@ -392,7 +477,7 @@ export default {
               color: 'rgb(111, 111, 111)'
             },
             showlegend: false,
-            hoverinfo: "none",
+            hovertemplate: '%{y}',
             opacity: 0.3,
           };
         }
@@ -401,6 +486,7 @@ export default {
       chartlbl = selected + ' 1 Yr Spot Return History';
       this.cdataspothistory = datacolhist;
       this.layoutspothistory = {
+        height: 800,
         title: {
           text: chartlbl,
           font: {
@@ -418,6 +504,16 @@ export default {
           ticks: '',
           showticklabels: false
         },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 0,
+          xanchor: 'left',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
       }
 
       // Distribution Calculation
@@ -674,6 +770,16 @@ export default {
             color: '#350942'
           }
         },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 0,
+          xanchor: 'left',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
         // xaxis: {
         //   autorange: true,
         //   showgrid: false,

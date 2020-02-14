@@ -33,7 +33,7 @@ export default {
 }
 #footer p {
   font-size: 15px;
-  color: #767676 !important;
+  color: #555555 !important;
 }
 h1 {
   color: rgb(59, 9, 66);

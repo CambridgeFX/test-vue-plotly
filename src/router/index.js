@@ -7,6 +7,7 @@ import MyPlotlyAxios from '@/components/MyPlotlyAxios'
 import MyPlotlyMultiple from '@/components/MyPlotlyMultiple'
 import MaterialTest from '@/components/MaterialTest'
 import MyPlotlyMaterial from '@/components/MyPlotlyMaterial'
+import MyPlotlyCard from '@/components/MyPlotlyCard'
 import Disclosures from '@/components/Disclosures'
 
 Vue.use(Router)
@@ -15,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'MyPlotlyMaterial',
-      component: MyPlotlyMaterial
+      name: 'MyPlotlyCard',
+      component: MyPlotlyCard
     },
     {
       path: '/disclosures/',
