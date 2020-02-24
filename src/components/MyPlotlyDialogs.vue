@@ -5,13 +5,12 @@
     <div class="md-layout md-gutter md-alignment-top-center">
       <div class="md-layout-item md-size-20">
         <MdField>
-          <MdSelect name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currPair">
+          <MdSelect name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currpair">
             <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
           </MdSelect>
         </MdField>
       </div>
     </div>
-    <hr />
     <MdDialog :md-active.sync="showdialogspothist">
       <DialogSpotHist :title="charttype" :selectedCurr="currPair" />
     </MdDialog>
@@ -33,7 +32,10 @@
     <MdDialog :md-active.sync="showdialogforecastfan">
       <DialogForecastFan :title="charttype" :selectedCurr="currPair" />
     </MdDialog>
-    <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton>
+    <div v-if="currpair != ''">
+      <hr />
+      <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton>
+    </div>
   </div>
 </template>
 
@@ -72,13 +74,13 @@ export default {
       showdialogforecastfan: false,
       currchartlist: ['Spot History', 'Spot Distribution', 'Forward History', 'Forward Curve', 'Volatility', 'Spot Rate Changes', 'Forecasts'],
       charttype: '',
-      currPair: '',
+      currpair: '',
       currpairlist: ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"],
     }
   },
   methods: {
     clickShowDialog: function(mytitle) {
-      var pair = this.currPair;
+      var pair = this.currpair;
       if (pair != '') {
         this.charttype = mytitle;
         if (this.charttype == 'Spot History') {

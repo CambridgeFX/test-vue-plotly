@@ -133,7 +133,7 @@ export default {
       chartlbl = selected + ' 1 Yr Spot Return History';
       this.cdataspotmoves = datacolhist;
       this.layoutspotmoves = {
-        height: 800,
+        height: 550,
         title: {
           text: chartlbl,
           font: {
