@@ -67,7 +67,7 @@ export default {
     getJSONData() {
       var fpathspot = "";
       
-      fpathspot = "../../static/spot5yr_usdcad.json";
+      fpathspot = "../../static/data/spot5yr_usdcad.json";
       const axiosspot = axios.get(fpathspot);
       axios.all([axiosspot]).then(axios.spread((...responses) => {
         this.jsondataspot = responses[0].data;

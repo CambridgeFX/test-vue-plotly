@@ -12,25 +12,25 @@
       </div>
     </div>
     <MdDialog :md-active.sync="showdialogspothist">
-      <DialogSpotHist :title="charttype" :selectedCurr="currPair" />
+      <DialogSpotHist :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogspotdist">
-      <DialogSpotDist :title="charttype" :selectedCurr="currPair" />
+      <DialogSpotDist :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforwardhist">
-      <DialogForwardHist :title="charttype" :selectedCurr="currPair" />
+      <DialogForwardHist :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforwardcurve">
-      <DialogForwardCurve :title="charttype" :selectedCurr="currPair" />
+      <DialogForwardCurve :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogvolatility">
-      <DialogVolatility :title="charttype" :selectedCurr="currPair" />
+      <DialogVolatility :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogspotmoves">
-      <DialogSpotMoves :title="charttype" :selectedCurr="currPair" />
+      <DialogSpotMoves :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforecastfan">
-      <DialogForecastFan :title="charttype" :selectedCurr="currPair" />
+      <DialogForecastFan :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <div v-if="currpair != ''">
       <hr />
@@ -48,7 +48,7 @@ import DialogVolatility from '@/components/dialogs/DialogVolatility'
 import DialogSpotMoves from '@/components/dialogs/DialogSpotMoves'
 import DialogForecastFan from '@/components/dialogs/DialogForecastFan'
 // Import data master at the beginning!
-import data_master from '../../static/data_master.json'
+import data_master from '../../static/data/data_master.json'
 
 export default {
   name: 'MyPlotlyDialogs',

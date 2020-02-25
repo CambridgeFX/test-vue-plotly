@@ -11,7 +11,7 @@
 import { Plotly } from 'vue-plotly'
 import axios from 'axios'
 // Import data master at the beginning!
-import data_master from '../../../static/data_master.json'
+import data_master from '../../../static/data/data_master.json'
 
 export default {
   name: 'DialogForwardCurve',
@@ -66,7 +66,7 @@ export default {
       if (selected == "Select here") {
         return;
       } else {
-        fpathforwardcurve = "../../static/forwardcurve_" + selected.toLowerCase() + ".json";
+        fpathforwardcurve = "../../../static/data/forwardcurve_" + selected.toLowerCase() + ".json";
       }
 
       const axiosspot = axios.get(fpathforwardcurve);

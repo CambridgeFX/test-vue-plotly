@@ -71,9 +71,9 @@ export default {
         return;
       } else {
         if (horizon == "five") {
-          fpathspot = "../../static/spot5yr_" + selected.toLowerCase() + ".json"
+          fpathspot = "../../static/data/spot5yr_" + selected.toLowerCase() + ".json"
         } else {
-          fpathspot = "../../static/spot20yr_" + selected.toLowerCase() + ".json"
+          fpathspot = "../../static/data/spot20yr_" + selected.toLowerCase() + ".json"
         }
       }
 

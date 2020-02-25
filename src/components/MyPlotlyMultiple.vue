@@ -166,16 +166,16 @@ export default {
         return;
       } else {
         if (horizon == "five") {
-          fpathspot = "../../static/spot5yr_" + selected.toLowerCase() + ".json";
+          fpathspot = "../../static/data/spot5yr_" + selected.toLowerCase() + ".json";
         } else {
-          fpathspot = "../../static/spot20yr_" + selected.toLowerCase() + ".json";
+          fpathspot = "../../static/data/spot20yr_" + selected.toLowerCase() + ".json";
         }
-        fpathspothist = "../../static/spothist_" + selected.toLowerCase() + ".json";
-        fpathforwardhist = "../../static/forward_" + selected.toLowerCase() + ".json";
-        fpathforwardcurve = "../../static/forwardcurve_" + selected.toLowerCase() + ".json";
-        fpathvolatility = "../../static/volatility_" + selected.toLowerCase() + ".json";
-        fpathdistcalc = "../../static/distcalc_" + selected.toLowerCase() + ".json";
-        fpathforecast = "../../static/forecast_" + selected.toLowerCase() + ".json";
+        fpathspothist = "../../static/data/spothist_" + selected.toLowerCase() + ".json";
+        fpathforwardhist = "../../static/data/forward_" + selected.toLowerCase() + ".json";
+        fpathforwardcurve = "../../static/data/forwardcurve_" + selected.toLowerCase() + ".json";
+        fpathvolatility = "../../static/data/volatility_" + selected.toLowerCase() + ".json";
+        fpathdistcalc = "../../static/data/distcalc_" + selected.toLowerCase() + ".json";
+        fpathforecast = "../../static/data/forecast_" + selected.toLowerCase() + ".json";
       }
 
       const axiosspot = axios.get(fpathspot);

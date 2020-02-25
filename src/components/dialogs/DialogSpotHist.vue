@@ -16,7 +16,7 @@
 import { Plotly } from 'vue-plotly'
 import axios from 'axios'
 // Import data master at the beginning!
-import data_master from '../../../static/data_master.json'
+import data_master from '../../../static/data/data_master.json'
 
 export default {
   name: 'DialogSpotHist',
@@ -73,9 +73,9 @@ export default {
         return;
       } else {
         if (horizon == "five") {
-          fpathspot = "../../static/spot5yr_" + selected.toLowerCase() + ".json";
+          fpathspot = "../../../static/data/spot5yr_" + selected.toLowerCase() + ".json";
         } else {
-          fpathspot = "../../static/spot20yr_" + selected.toLowerCase() + ".json";
+          fpathspot = "../../../static/data/spot20yr_" + selected.toLowerCase() + ".json";
         }
       }
 

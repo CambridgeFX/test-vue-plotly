@@ -9,33 +9,33 @@
             <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
           </MdSelect>
         </MdField>
+        <button @click="saveChart">Save</button>
       </div>
     </div>
     <br /><br />
     <div v-if="loaded">
-      <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly> 
+      <Plotly ref="chartspothist" :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly> 
       <br />
       <div>
         <MdRadio v-model="selectedHorizon" value="five" class="md-primary" @change="onCurrChange()">5 Years</MdRadio>
         <MdRadio v-model="selectedHorizon" value="twenty" class="md-primary" @change="onCurrChange()">20 Years</MdRadio>
       </div>
       <br /><br />
-      <Plotly :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
+      <Plotly ref="chartforwardhist" :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
       <br /><br />
-      <div class="flex-container">
-        <div><Plotly :data="cdataforwardcurve" :layout="layoutforwardcurve" :display-mode-bar="false"></Plotly></div>
-        <div><Plotly :data="cdatavolatility" :layout="layoutvolatility" :display-mode-bar="false"></Plotly></div>
-      </div>
+      <Plotly ref="chartforwardcurve" :data="cdataforwardcurve" :layout="layoutforwardcurve" :display-mode-bar="false"></Plotly>
       <br /><br />
-      <Plotly :data="cdataspothistory" :layout="layoutspothistory" :display-mode-bar="false"></Plotly>
+      <Plotly ref="chartvolatility" :data="cdatavolatility" :layout="layoutvolatility" :display-mode-bar="false"></Plotly>
       <br /><br />
-      <div class="flex-container">
+      <Plotly ref="chartspotcurve" :data="cdataspothistory" :layout="layoutspothistory" :display-mode-bar="false"></Plotly>
+      <br /><br />
+      <div ref="chartspotdist" class="flex-container">
         <div><Plotly :data="cdatadist3M" :layout="layoutdist3M" :display-mode-bar="false"></Plotly></div>
         <div><Plotly :data="cdatadist6M" :layout="layoutdist6M" :display-mode-bar="false"></Plotly></div>
         <div><Plotly :data="cdatadist12M" :layout="layoutdist12M" :display-mode-bar="false"></Plotly></div>
       </div>
       <br /><br />
-      <Plotly :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
+      <Plotly ref="chartforecastfan" :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
       <MdDialog :md-active.sync="openMethodology">
         <div class="paradialog">
           <MdDialogTitle>Fan Chart Methodology</MdDialogTitle>
@@ -62,7 +62,7 @@ import { MdField, MdSelect, MdOption } from 'vue-material/dist/components/MdFiel
 import data_master from '../../static/data/data_master.json'
 
 export default {
-  name: 'MyPlotlyMultiple',
+  name: 'MyPlotlyAllCharts',
   components: {
     Plotly
   },
@@ -168,7 +168,60 @@ export default {
     // alert("Mounted");
   },
   methods: {
-    onCurrChange() {
+    saveChart() {
+      let vc = this
+      html2canvas(vc.$refs.chartspothist).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_spothist.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartforwardhist).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_forwardhist.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartforwardcurve).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_forwardcurve.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartvolatility).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_volatility.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartspotcurve).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_spotcurve.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartspotdist).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_spotdist.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartforecastfan).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_forecastfan.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+    },
+    saveAs(uri, filename) {
+      var link = document.createElement('a');
+      if (typeof link.download === 'string') {
+          link.href = uri;
+          link.download = filename;
+
+          //Firefox requires the link to be in the body
+          document.body.appendChild(link);
+          //simulate click
+          link.click();
+          //remove the link when done
+          document.body.removeChild(link);
+      } else {
+          window.open(uri);
+      }
+    },onCurrChange() {
       // When select input changes, reload data and update charts
       var selected = this.selectedCurr;
       if (selected == "Select here" || selected == "") {
@@ -264,6 +317,8 @@ export default {
         hovertemplate: '1 ' + selected.substring(0,3) + ' = %{y} '+ selected.substring(3) + '<extra></extra>',
       }]
       this.layoutspot = {
+        height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {
@@ -324,6 +379,8 @@ export default {
         hovertemplate: '%{y:.2f}<extra></extra>',
       }]
       this.layoutforward = {
+        height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {
@@ -383,6 +440,8 @@ export default {
         }
       }]
       this.layoutforwardcurve = {
+        height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {
@@ -420,6 +479,8 @@ export default {
         }
       }]
       this.layoutvolatility = {
+        height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {
@@ -487,6 +548,7 @@ export default {
       this.cdataspothistory = datacolhist;
       this.layoutspothistory = {
         height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {
@@ -762,6 +824,8 @@ export default {
       chartlbl = selected + ' 12 Mo Outlook';
       this.cdataforecast = datacolcast;
       this.layoutforecast = {
+        height: 800,
+        width: 1400,
         title: {
           text: chartlbl,
           font: {

@@ -15,7 +15,7 @@
 import { Plotly } from 'vue-plotly'
 import axios from 'axios'
 // Import data master at the beginning!
-import data_master from '../../../static/data_master.json'
+import data_master from '../../../static/data/data_master.json'
 
 export default {
   name: 'DialogSpotHist',
@@ -87,7 +87,7 @@ export default {
       if (selected == "Select here") {
         return;
       } else {
-        fpathdistcalc = "../../static/distcalc_" + selected.toLowerCase() + ".json";
+        fpathdistcalc = "../../../static/data/distcalc_" + selected.toLowerCase() + ".json";
       }
 
       const axiosspot = axios.get(fpathdistcalc);

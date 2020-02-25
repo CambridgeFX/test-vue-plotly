@@ -14,8 +14,8 @@
 
 <script>
 import { Plotly } from 'vue-plotly'
-import json_5yrspot_usdcad from '../../static/spot5yr_usdcad.json'
-import json_5yrspot_gbpcad from '../../static/spot5yr_gbpcad.json'
+import json_5yrspot_usdcad from '../../static/data/spot5yr_usdcad.json'
+import json_5yrspot_gbpcad from '../../static/data/spot5yr_gbpcad.json'
 
 export default {
   name: 'MyPlotly',
