@@ -8,6 +8,7 @@ import MyPlotlyMultiple from '@/components/MyPlotlyMultiple'
 import MaterialTest from '@/components/MaterialTest'
 import MyPlotlyMaterial from '@/components/MyPlotlyMaterial'
 import MyPlotlyDialogs from '@/components/MyPlotlyDialogs'
+import MyPlotlyDialogCanvas from '@/components/MyPlotlyDialogCanvas'
 import Disclosures from '@/components/Disclosures'
 
 Vue.use(Router)
@@ -18,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'MyPlotlyDialogs',
       component: MyPlotlyDialogs
+    },
+    {
+      path: '/mini',
+      name: 'MyPlotlyDialogCanvas',
+      component: MyPlotlyDialogCanvas
     },
     {
       path: '/disclosures/',
