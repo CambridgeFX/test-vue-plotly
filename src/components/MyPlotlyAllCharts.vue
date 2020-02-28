@@ -14,20 +14,20 @@
     </div>
     <br /><br />
     <div v-if="loaded">
-      <Plotly ref="chartspothist" :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly> 
+      <div ref="chartspothist"><Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly></div>
       <br />
       <div>
         <MdRadio v-model="selectedHorizon" value="five" class="md-primary" @change="onCurrChange()">5 Years</MdRadio>
         <MdRadio v-model="selectedHorizon" value="twenty" class="md-primary" @change="onCurrChange()">20 Years</MdRadio>
       </div>
       <br /><br />
-      <Plotly ref="chartforwardhist" :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly>
+      <div ref="chartforwardhist"><Plotly :data="cdataforward" :layout="layoutforward" :display-mode-bar="false"></Plotly></div>
       <br /><br />
-      <Plotly ref="chartforwardcurve" :data="cdataforwardcurve" :layout="layoutforwardcurve" :display-mode-bar="false"></Plotly>
+      <div ref="chartforwardcurve"><Plotly :data="cdataforwardcurve" :layout="layoutforwardcurve" :display-mode-bar="false"></Plotly></div>
       <br /><br />
-      <Plotly ref="chartvolatility" :data="cdatavolatility" :layout="layoutvolatility" :display-mode-bar="false"></Plotly>
+      <div ref="chartvolatility"><Plotly :data="cdatavolatility" :layout="layoutvolatility" :display-mode-bar="false"></Plotly></div>
       <br /><br />
-      <Plotly ref="chartspotcurve" :data="cdataspothistory" :layout="layoutspothistory" :display-mode-bar="false"></Plotly>
+      <div ref="chartspotmoves"><Plotly :data="cdataspotmoves" :layout="layoutspotmoves" :display-mode-bar="false"></Plotly></div>
       <br /><br />
       <div ref="chartspotdist" class="flex-container">
         <div><Plotly :data="cdatadist3M" :layout="layoutdist3M" :display-mode-bar="false"></Plotly></div>
@@ -35,7 +35,7 @@
         <div><Plotly :data="cdatadist12M" :layout="layoutdist12M" :display-mode-bar="false"></Plotly></div>
       </div>
       <br /><br />
-      <Plotly ref="chartforecastfan" :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
+      <div ref="chartforecastfan"><Plotly :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly></div>
       <MdDialog :md-active.sync="openMethodology">
         <div class="paradialog">
           <MdDialogTitle>Fan Chart Methodology</MdDialogTitle>
@@ -56,6 +56,7 @@
 
 <script>
 import { Plotly } from 'vue-plotly'
+import html2canvas from 'html2canvas'
 import axios from 'axios'
 import { MdField, MdSelect, MdOption } from 'vue-material/dist/components/MdField'
 // Import data master at the beginning!
@@ -71,7 +72,7 @@ export default {
       // JSON Data
       jsondatamaster: data_master,
       jsondataspot: null,
-      jsondataspothist: null,
+      jsondataspotmoves: null,
       jsondataforward: null,
       jsondataforwardcurve: null,
       jsondatavolatility: null,
@@ -86,8 +87,8 @@ export default {
       layoutspot: {
         title: 'USDCAD 5 Yr Spot'
       },
-      cdataspothistory: [],
-      layoutspothistory: {
+      cdataspotmoves: [],
+      layoutspotmoves: {
         title: 'USDCAD 1 Yr Spot Return History'
       },
       cdataforward: [{
@@ -190,8 +191,8 @@ export default {
       }).catch((error) => {
         console.log("Error", error);
       });
-      html2canvas(vc.$refs.chartspotcurve).then(canvas => {
-        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_spotcurve.png');
+      html2canvas(vc.$refs.chartspotmoves).then(canvas => {
+        this.saveAs(canvas.toDataURL(), this.selectedCurr + '_spotmoves.png');
       }).catch((error) => {
         console.log("Error", error);
       });
@@ -235,7 +236,7 @@ export default {
       var selected = this.selectedCurr;
       var horizon = this.selectedHorizon;
       var fpathspot = "";
-      var fpathspothist = "";
+      var fpathspotmoves = "";
       var fpathforwardhist = "";
       var fpathforwardcurve = "";
       var fpathvolatility = "";
@@ -253,7 +254,7 @@ export default {
         } else {
           fpathspot = "../../static/data/spot20yr_" + selected.toLowerCase() + ".json";
         }
-        fpathspothist = "../../static/data/spothist_" + selected.toLowerCase() + ".json";
+        fpathspotmoves = "../../static/data/spothist_" + selected.toLowerCase() + ".json";
         fpathforwardhist = "../../static/data/forward_" + selected.toLowerCase() + ".json";
         fpathforwardcurve = "../../static/data/forwardcurve_" + selected.toLowerCase() + ".json";
         fpathvolatility = "../../static/data/volatility_" + selected.toLowerCase() + ".json";
@@ -262,7 +263,7 @@ export default {
       }
 
       const axiosspot = axios.get(fpathspot);
-      const axiosspothist = axios.get(fpathspothist);
+      const axiosspothist = axios.get(fpathspotmoves);
       const axiosforward = axios.get(fpathforwardhist);
       const axiosforwardcurve = axios.get(fpathforwardcurve);
       const axiosvolatility = axios.get(fpathvolatility);
@@ -273,7 +274,7 @@ export default {
         this.jsondataspot = responses[0].data;
         this.jsondataforward = responses[1].data;
         this.jsondataforwardcurve = responses[2].data;
-        this.jsondataspothist = responses[3].data;
+        this.jsondataspotmoves = responses[3].data;
         this.jsondatavolatility = responses[4].data;
         this.jsondatadistcalc = responses[5].data;
         this.jsondataforecast = responses[6].data;
@@ -503,14 +504,14 @@ export default {
 
       // Spot Return History
       var first = true;
-      for(var i in this.jsondataspothist) {
+      for(var i in this.jsondataspotmoves) {
         x = [];
         y = [];
-        var histname = this.jsondataspothist[i].sequence
-        for(var j in this.jsondataspothist[i]) {
+        var histname = this.jsondataspotmoves[i].sequence
+        for(var j in this.jsondataspotmoves[i]) {
           if(j != "sequence") {
             x.push(j)
-            y.push(this.jsondataspothist[i][j])
+            y.push(this.jsondataspotmoves[i][j])
           }
         }
         if (first == true) {
@@ -545,8 +546,8 @@ export default {
         datacolhist.push(histdata);
       };
       chartlbl = selected + ' 1 Yr Spot Return History';
-      this.cdataspothistory = datacolhist;
-      this.layoutspothistory = {
+      this.cdataspotmoves = datacolhist;
+      this.layoutspotmoves = {
         height: 800,
         width: 1400,
         title: {

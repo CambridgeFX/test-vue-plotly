@@ -34,7 +34,8 @@
     </MdDialog>
     <div v-if="currpair != ''">
       <hr />
-      <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton>
+      <!-- <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton> -->
+      <img class="charticon" v-for="icon in charticonnames" :key="icon" :src="'../../static/icons/' + currpair + icon + '.png'" />
     </div>
   </div>
 </template>
@@ -73,6 +74,7 @@ export default {
       showdialogspotmoves: false,
       showdialogforecastfan: false,
       currchartlist: ['Spot History', 'Spot Distribution', 'Forward History', 'Forward Curve', 'Volatility', 'Spot Rate Changes', 'Forecasts'],
+      charticonnames: ['_spothist', '_spotdist', '_forwardhist', '_forwardcurve', '_volatility', '_spotmoves', '_forecastfan'],
       charttype: '',
       currpair: '',
       currpairlist: ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"],
@@ -124,5 +126,9 @@ h1 {
   width: 90%;
   height: 90%;
   padding-top: 20px;
+}
+.charticon {
+  width: 200px;
+  height: 150px;
 }
 </style>
