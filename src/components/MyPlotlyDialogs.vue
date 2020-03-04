@@ -35,7 +35,7 @@
     <div v-if="currpair != ''">
       <hr />
       <!-- <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton> -->
-      <img class="charticon" v-for="icon in charticonnames" :key="icon" :src="'../../static/icons/' + currpair + icon + '.png'" />
+      <img class="charticon" v-for="(icon, index) in charticonnames" :key="icon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" />
     </div>
   </div>
 </template>

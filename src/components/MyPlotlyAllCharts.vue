@@ -642,6 +642,7 @@ export default {
                   color: '#350942'
                 }
               },
+              height: 800,
               width: 400,
             }
           } else if (distname.substring(0,3) == "6M ") {
@@ -656,6 +657,7 @@ export default {
                   color: '#350942'
                 }
               },
+              height: 800,
               width: 400,
             }
           } else {
@@ -670,6 +672,7 @@ export default {
                   color: '#350942'
                 }
               },
+              height: 800,
               width: 400,
             }
           }
