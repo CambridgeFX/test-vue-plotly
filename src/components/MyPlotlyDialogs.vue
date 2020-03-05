@@ -35,7 +35,12 @@
     <div v-if="currpair != ''">
       <hr />
       <!-- <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton> -->
-      <img class="charticon" v-for="(icon, index) in charticonnames" :key="icon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" />
+      <div class="flex-container">
+      <div v-for="(icon, index) in charticonnames" :key="icon">
+        <a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br />
+        <img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" />
+      </div>
+      </div>
     </div>
   </div>
 </template>
@@ -130,5 +135,6 @@ h1 {
 .charticon {
   width: 200px;
   height: 150px;
+  cursor: pointer;
 }
 </style>
