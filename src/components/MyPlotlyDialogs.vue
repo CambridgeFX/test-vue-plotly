@@ -33,7 +33,7 @@
       <DialogForecastFan :title="charttype" :selectedCurr="currpair" />
     </MdDialog>
     <div v-if="currpair != ''">
-      <hr />
+      <hr class="section" />
       <!-- <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton> -->
       <div class="flex-container">
       <div v-for="(icon, index) in charticonnames" :key="icon">
@@ -82,7 +82,7 @@ export default {
       charticonnames: ['_spothist', '_spotdist', '_forwardhist', '_forwardcurve', '_volatility', '_spotmoves', '_forecastfan'],
       charttype: '',
       currpair: '',
-      currpairlist: ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"],
+      currpairlist: data_master.Pairs,
     }
   },
   methods: {
@@ -127,10 +127,17 @@ export default {
 h1 {
   color: rgb(59, 9, 66);
 }
+hr.section {
+  border-top: 1px solid;
+  border-color: rgb(255, 129, 0);
+}
 .md-dialog {
   width: 90%;
   height: 90%;
   padding-top: 20px;
+}
+.dialogbutton {
+  color: black;
 }
 .charticon {
   width: 200px;

@@ -1,98 +1,74 @@
 [
   {
-    "month": "M1",
-    "forward": -1360.99999999999
+    "forward": 76.8427
   },
   {
-    "month": "M2",
-    "forward": -2596.00000000006
+    "forward": 76.7624
   },
   {
-    "month": "M3",
-    "forward": -4043.99999999995
+    "forward": 76.679
   },
   {
-    "month": "M4",
-    "forward": -5374.33333333325
+    "forward": 76.6055
   },
   {
-    "month": "M5",
-    "forward": -6704.66666666655
+    "forward": 76.532
   },
   {
-    "month": "M6",
-    "forward": -8035
+    "forward": 76.4585
   },
   {
-    "month": "M7",
-    "forward": -9324.6666666667
+    "forward": 76.3791
   },
   {
-    "month": "M8",
-    "forward": -10614.3333333334
+    "forward": 76.2997
   },
   {
-    "month": "M9",
-    "forward": -11904
+    "forward": 76.2203
   },
   {
-    "month": "M10",
-    "forward": -13275.3333333334
+    "forward": 76.1312666666667
   },
   {
-    "month": "M11",
-    "forward": -14646.6666666667
+    "forward": 76.0422333333333
   },
   {
-    "month": "M12",
-    "forward": -16018
+    "forward": 75.9532
   },
   {
-    "month": "M13",
-    "forward": -17282.6666666667
+    "forward": 75.87125
   },
   {
-    "month": "M14",
-    "forward": -18547.3333333334
+    "forward": 75.7893
   },
   {
-    "month": "M15",
-    "forward": -19812.0000000002
+    "forward": 75.70735
   },
   {
-    "month": "M16",
-    "forward": -21076.6666666669
+    "forward": 75.6254
   },
   {
-    "month": "M17",
-    "forward": -22341.3333333336
+    "forward": 75.54345
   },
   {
-    "month": "M18",
-    "forward": -23606.0000000001
+    "forward": 75.4615
   },
   {
-    "month": "M19",
-    "forward": -24986.6666666668
+    "forward": 75.36545
   },
   {
-    "month": "M20",
-    "forward": -26367.3333333335
+    "forward": 75.2694
   },
   {
-    "month": "M21",
-    "forward": -27748.0000000003
+    "forward": 75.17335
   },
   {
-    "month": "M22",
-    "forward": -29128.666666667
+    "forward": 75.0773
   },
   {
-    "month": "M23",
-    "forward": -30509.3333333338
+    "forward": 74.98125
   },
   {
-    "month": "M24",
-    "forward": -31890.0000000001
+    "forward": 74.8852
   }
 ]

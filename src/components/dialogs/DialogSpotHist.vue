@@ -3,7 +3,6 @@
     <MdDialogTitle>{{ title }}</MdDialogTitle>
     <MdDialogContent>
       <Plotly :data="cdataspot" :layout="layoutspot" :display-mode-bar="false"></Plotly>
-      <br />
       <div class="flex-container">
         <MdRadio v-model="selectedHorizon" value="five" class="md-primary" @change="onCurrChange()">5 Years</MdRadio>
         <MdRadio v-model="selectedHorizon" value="twenty" class="md-primary" @change="onCurrChange()">20 Years</MdRadio>

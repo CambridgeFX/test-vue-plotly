@@ -149,7 +149,7 @@ export default {
       },
       // Other data
       loaded: false,
-      currpairlist: ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"],
+      currpairlist: data_master.Pairs,
       selectedCurr: "",
       selectedHorizon: "five",
       openMethodology: false,

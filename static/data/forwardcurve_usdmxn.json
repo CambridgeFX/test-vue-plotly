@@ -1,98 +1,74 @@
 [
   {
-    "month": "M1",
-    "forward": 888.000000000027
+    "forward": 20.9475
   },
   {
-    "month": "M2",
-    "forward": 1706
+    "forward": 21.046375
   },
   {
-    "month": "M3",
-    "forward": 2556.50000000003
+    "forward": 21.1482
   },
   {
-    "month": "M4",
-    "forward": 3389.91666666669
+    "forward": 21.254
   },
   {
-    "month": "M5",
-    "forward": 4223.33333333334
+    "forward": 21.3598
   },
   {
-    "month": "M6",
-    "forward": 5056.75
+    "forward": 21.4656
   },
   {
-    "month": "M7",
-    "forward": 5901.83333333332
+    "forward": 21.567026
   },
   {
-    "month": "M8",
-    "forward": 6746.91666666664
+    "forward": 21.668452
   },
   {
-    "month": "M9",
-    "forward": 7592
+    "forward": 21.769878
   },
   {
-    "month": "M10",
-    "forward": 8425.00000000001
+    "forward": 21.8629853333333
   },
   {
-    "month": "M11",
-    "forward": 9258.00000000002
+    "forward": 21.9560926666667
   },
   {
-    "month": "M12",
-    "forward": 10091
+    "forward": 22.0492
   },
   {
-    "month": "M13",
-    "forward": 10892.02
+    "forward": 22.1493178333333
   },
   {
-    "month": "M14",
-    "forward": 11693.04
+    "forward": 22.2494356666667
   },
   {
-    "month": "M15",
-    "forward": 12494.06
+    "forward": 22.3495535
   },
   {
-    "month": "M16",
-    "forward": 13295.08
+    "forward": 22.4496713333333
   },
   {
-    "month": "M17",
-    "forward": 14096.1
+    "forward": 22.5497891666667
   },
   {
-    "month": "M18",
-    "forward": 14897.12
+    "forward": 22.649907
   },
   {
-    "month": "M19",
-    "forward": 15717.2666666667
+    "forward": 22.759135
   },
   {
-    "month": "M20",
-    "forward": 16537.4133333333
+    "forward": 22.868363
   },
   {
-    "month": "M21",
-    "forward": 17357.56
+    "forward": 22.977591
   },
   {
-    "month": "M22",
-    "forward": 18177.7066666666
+    "forward": 23.086819
   },
   {
-    "month": "M23",
-    "forward": 18997.8533333333
+    "forward": 23.196047
   },
   {
-    "month": "M24",
-    "forward": 19818
+    "forward": 23.305275
   }
 ]
