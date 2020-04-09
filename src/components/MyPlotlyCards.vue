@@ -14,33 +14,58 @@
     </div>
     <MdDialog :md-active.sync="showdialogspothist">
       <DialogSpotHist :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogspothist = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogspotdist">
       <DialogSpotDist :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogspotdist = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforwardhist">
       <DialogForwardHist :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogforwardhist = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforwardcurve">
       <DialogForwardCurve :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogforwardcurve = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogvolatility">
       <DialogVolatility :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogvolatility = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogspotmoves">
       <DialogSpotMoves :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogspotmoves = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <MdDialog :md-active.sync="showdialogforecastfan">
       <DialogForecastFan :title="charttype" :selectedCurr="currpair" />
+      <div class="flex-container"><MdDialogActions>
+        <MdButton class="md-raised md-primary" @click="showdialogforecastfan = false">Close</MdButton>
+      </MdDialogActions></div>
     </MdDialog>
     <div v-if="currpair != ''">
       <hr class="section" />
-      <!-- <MdButton class="md-primary md-raised" v-for="ch in currchartlist" :key="ch" @click="clickShowDialog(ch)">{{ ch }}</MdButton> -->
+      <br />
       <div class="flex-container">
-      <div v-for="(icon, index) in charticonnames" :key="icon">
-        <a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br />
-        <img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" />
-      </div>
+        <MdCard md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
+          <MdRipple>
+            <div @click="clickShowDialog(currchartlist[index])">
+              <MdCardHeader><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></MdCardHeader>
+              <MdCardMedia><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></MdCardMedia>
+            </div>
+          </MdRipple>
+        </MdCard>
       </div>
     </div>
   </div>
@@ -133,9 +158,10 @@ hr.section {
   border-color: rgb(255, 129, 0);
 }
 .md-dialog {
-  width: 90%;
+  width: 100%;
   height: 90%;
   padding-top: 20px;
+  max-height: 800px;
 }
 .dialogbutton {
   color: black;

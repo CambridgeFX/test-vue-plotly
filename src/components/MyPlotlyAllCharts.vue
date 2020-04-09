@@ -49,6 +49,10 @@
       <br />
       <MdButton class="md-raised md-primary" @click="openMethodology = true">Fan Chart Methodology</MdButton>
       <br /><br />
+      <div ref="chartglobalfedfunds"><Plotly :data="cdatalglobalfedfunds" :layout="layoutglobalfedfunds" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
+      <div ref="chartglobalunemplrate"><Plotly :data="cdatalglobalunemplrate" :layout="layoutglobalunemplrate" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
       <div><span>Data last updated: {{ jsondatamaster.DateStamp }} </span></div>
     </div>
   </div>
@@ -78,6 +82,10 @@ export default {
       jsondatavolatility: null,
       jsondatadistcalc: null,
       jsondataforecast: null,
+      // Global JSON Data
+      jsondataglobalfedfunds: null,
+      jsondataglobalunemplrate: null,
+      
       // Chart data and layout objects
       cdataspot: [{
         x: [],
@@ -146,6 +154,23 @@ export default {
       }],
       layoutforecast: {
         title: 'USDCAD 12 Mo Outlook'
+      },
+      // Global chart data and layout objects
+      cdatalglobalfedfunds: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalfedfunds: {
+        title: 'USDCAD 5 Yr Spot'
+      },
+      cdatalglobalunemplrate: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalunemplrate: {
+        title: 'USDCAD 5 Yr Spot'
       },
       // Other data
       loaded: false,
@@ -242,6 +267,8 @@ export default {
       var fpathvolatility = "";
       var fpathdistcalc = "";
       var fpathforecast = "";
+      var fpathglobalfedfunds = "";
+      var fpathglobalunemplrate = "";
       let self = this;
 
       this.loaded = false;
@@ -260,6 +287,9 @@ export default {
         fpathvolatility = "../../static/data/volatility_" + selected.toLowerCase() + ".json";
         fpathdistcalc = "../../static/data/distcalc_" + selected.toLowerCase() + ".json";
         fpathforecast = "../../static/data/forecast_" + selected.toLowerCase() + ".json";
+        
+        fpathglobalfedfunds = "../../static/data/global_fedfundsrate.json";
+        fpathglobalunemplrate = "../../static/data/global_unemploymentrate.json";
       }
 
       const axiosspot = axios.get(fpathspot);
@@ -269,8 +299,11 @@ export default {
       const axiosvolatility = axios.get(fpathvolatility);
       const axiosdistcalc = axios.get(fpathdistcalc);
       const axiosforecast = axios.get(fpathforecast);
+      
+      const axiosglobalfedfunds = axios.get(fpathglobalfedfunds);
+      const axiosglobalunemplrate = axios.get(fpathglobalunemplrate);
 
-      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast]).then(axios.spread((...responses) => {
+      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast, axiosglobalfedfunds, axiosglobalunemplrate]).then(axios.spread((...responses) => {
         this.jsondataspot = responses[0].data;
         this.jsondataforward = responses[1].data;
         this.jsondataforwardcurve = responses[2].data;
@@ -278,6 +311,9 @@ export default {
         this.jsondatavolatility = responses[4].data;
         this.jsondatadistcalc = responses[5].data;
         this.jsondataforecast = responses[6].data;
+
+        this.jsondataglobalfedfunds = responses[7].data;
+        this.jsondataglobalunemplrate = responses[8].data;
         this.loadJSONData();
       })).catch(errors => {
         console.log(errors);
@@ -859,6 +895,129 @@ export default {
         // },
       }
       
+      // Global charts
+
+      // Fed fund rates
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalfedfunds) {
+        x.push(this.jsondataglobalfedfunds[i].date);
+        y.push(this.jsondataglobalfedfunds[i].value);
+      }
+      chartlbl = 'Federal Fund Rates'
+      this.cdatalglobalfedfunds = [{
+        x: x,
+        y: y,
+        type: 'scatter',
+        line: {
+          color: 'rgb(62, 17, 81)'
+        },
+      }]
+      this.layoutglobalfedfunds = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Fund Rates',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'FRED Economic Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
+      // Unemployment Rate
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalunemplrate) {
+        x.push(this.jsondataglobalunemplrate[i].date);
+        y.push(this.jsondataglobalunemplrate[i].value);
+      }
+      chartlbl = 'Unemployment Rate'
+      this.cdatalglobalunemplrate = [{
+        x: x,
+        y: y,
+        type: 'scatter',
+        line: {
+          color: 'rgb(62, 17, 81)'
+        },
+      }]
+      this.layoutglobalunemplrate = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Unemployment Rate',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'FRED Economic Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
     }
   }
 }
