@@ -4,14 +4,18 @@
       <MdAppToolbar>
         <a href="/"><img id="logo" src="@/assets/web_logo_light.png"></a>
         <div class="md-toolbar-section-end">
-          <md-button to="/" class="md-primary">Home</md-button>
-          <md-button to="/disclosures/">Disclosures</md-button>
+          <md-button to="home" class="md-primary">Home</md-button>
+          <md-button to="pairs" class="md-primary">Currency</md-button>
+          <md-button to="globals" class="md-primary">Macroeconomic</md-button>
+          <md-button to="disclosures" class="md-primary">Disclosures</md-button>
         </div>
       </MdAppToolbar>
       <MdAppContent>
         <!-- <Header/> -->
         <br /><br /><br />
-        <router-view/>
+        <transition name="fade-slide-up" mode="out-in">
+          <router-view></router-view>
+        </transition>
         <Footer/>
       </MdAppContent>
     </MdApp>
@@ -69,5 +73,15 @@ Footer {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+.fade-slide-up-enter-active {
+  transition: all 0.5s ease;
+}
+.fade-slide-up-leave-active {
+  transition: all 0.5s ease;
+}
+.fade-slide-up-enter, .fade-slide-up-leave-to {
+  transform: translateY(40px);
+  opacity: 0;
 }
 </style>
