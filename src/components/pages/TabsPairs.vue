@@ -56,12 +56,12 @@
       <br />
       <div class="flex-container">
         <MdCard md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
-          <MdRipple>
+          <d-ripple>
             <div @click="clickShowDialog(currchartlist[index])">
               <MdCardHeader><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></MdCardHeader>
               <MdCardMedia><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></MdCardMedia>
             </div>
-          </MdRipple>
+          </d-ripple>
         </MdCard>
       </div>
     </div>
@@ -164,8 +164,8 @@ hr.section {
   color: black;
 }
 .charticon {
-  width: 200px;
-  height: 150px;
+  max-width: 200px;
+  max-height: 150px;
   cursor: pointer;
 }
 </style>

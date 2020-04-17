@@ -9,7 +9,7 @@
             <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
           </MdSelect>
         </MdField>
-        <button @click="saveChart">Save</button>
+        <button @click="saveChart">Save Pair</button><button @click="saveGlobal">Save Global</button>
       </div>
     </div>
     <br /><br />
@@ -232,6 +232,19 @@ export default {
         console.log("Error", error);
       });
     },
+    saveGlobal() {
+      let vc = this
+      html2canvas(vc.$refs.chartglobalfedfunds).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_fedfunds.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartglobalunemplrate).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_unemplrate.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+    },
     saveAs(uri, filename) {
       var link = document.createElement('a');
       if (typeof link.download === 'string') {
@@ -247,7 +260,8 @@ export default {
       } else {
           window.open(uri);
       }
-    },onCurrChange() {
+    },
+    onCurrChange() {
       // When select input changes, reload data and update charts
       var selected = this.selectedCurr;
       if (selected == "Select here" || selected == "") {

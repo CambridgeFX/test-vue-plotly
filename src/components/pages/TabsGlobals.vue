@@ -1,28 +1,52 @@
 <template>
   <div id="GlobalsTab">
-    <h3>Global charts here</h3>
+    <h3>Global Macroeconomic Charts</h3>
+    <md-dialog :md-active.sync="showdialogfedfunds">
+      <DialogGlobalFedFunds :title="charttype" />
+      <div class="flex-container"><md-dialog-actions>
+        <md-button class="md-raised md-primary" @click="showdialogfedfunds = false">Close</md-button>
+      </md-dialog-actions></div>
+    </md-dialog>
+    <md-dialog :md-active.sync="showdialogunemplrates">
+      <DialogGlobalUnemplRate :title="charttype" />
+      <div class="flex-container"><md-dialog-actions>
+        <md-button class="md-raised md-primary" @click="showdialogunemplrates = false">Close</md-button>
+      </md-dialog-actions></div>
+    </md-dialog>
+    <div>
+      <hr class="section" />
+      <br />
+      <div class="flex-container">
+        <md-card md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
+          <md-ripple>
+            <div @click="clickShowDialog(currchartlist[index])">
+              <MdCardHeader><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></MdCardHeader>
+              <MdCardMedia><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + icon + '.png'" /></MdCardMedia>
+            </div>
+          </md-ripple>
+        </md-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import DialogGlobalFedFunds from '@/components/dialogs/DialogGlobalFedFunds'
+import DialogGlobalUnemplRate from '@/components/dialogs/DialogGlobalUnemplRate'
 export default {
   name: 'TabsGlobals',
   components: {
-    
+    DialogGlobalFedFunds,
+    DialogGlobalUnemplRate,
   },
   data() {
     return {
       // JSON Data
       // jsondatamaster: data_master,
-      showdialogspothist: false,
-      showdialogspotdist: false,
-      showdialogforwardhist: false,
-      showdialogforwardcurve: false,
-      showdialogvolatility: false,
-      showdialogspotmoves: false,
-      showdialogforecastfan: false,
-      currchartlist: ['Spot History', 'Spot Distribution', 'Forward History', 'Forward Curve', 'Volatility', 'Spot Rate Changes', 'Forecasts'],
-      charticonnames: ['_spothist', '_spotdist', '_forwardhist', '_forwardcurve', '_volatility', '_spotmoves', '_forecastfan'],
+      showdialogfedfunds: false,
+      showdialogunemplrates: false,
+      currchartlist: ['Federal Funds', 'Unemployment'],
+      charticonnames: ['GLOBAL_fedfunds', 'GLOBAL_unemplrate'],
       charttype: '',
       currpair: '',
       // currpairlist: data_master.Pairs,
@@ -30,27 +54,14 @@ export default {
   },
   methods: {
     clickShowDialog: function(mytitle) {
-      var pair = this.currpair;
-      if (pair != '') {
-        this.charttype = mytitle;
-        if (this.charttype == 'Spot History') {
-          this.showdialogspothist = true;
-        } else if (this.charttype == 'Spot Distribution') {
-          this.showdialogspotdist = true;
-        } else if (this.charttype == 'Forward History') {
-          this.showdialogforwardhist = true;
-        } else if (this.charttype == 'Forward Curve') {
-          this.showdialogforwardcurve = true;
-        } else if (this.charttype == 'Volatility') {
-          this.showdialogvolatility = true;
-        } else if (this.charttype == 'Spot Rate Changes') {
-          this.showdialogspotmoves = true;
-        } else if (this.charttype == 'Forecasts') {
-          this.showdialogforecastfan = true;
-        }
-        this.showDialog = true;
-      }
-    },
+      this.charttype = mytitle;
+      if (this.charttype == 'Federal Funds') {
+        this.showdialogfedfunds = true;
+      } else if (this.charttype == 'Unemployment') {
+        this.showdialogunemplrates = true;
+      } 
+      this.showDialog = true;
+    }
   },
 }
 </script>
@@ -84,8 +95,8 @@ hr.section {
   color: black;
 }
 .charticon {
-  width: 200px;
-  height: 150px;
+  max-width: 200px;
+  max-height: 150px;
   cursor: pointer;
 }
 </style>
