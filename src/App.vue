@@ -1,24 +1,29 @@
 <template>
   <div id="app" class="main-container">
-    <MdApp md-mode="fixed">
-      <MdAppToolbar>
+    <md-app md-mode="fixed">
+      <md-app-toolbar>
         <a href="/"><img id="logo" src="@/assets/web_logo_light.png"></a>
         <div class="md-toolbar-section-end">
-          <md-button to="home" class="md-primary">Home</md-button>
-          <md-button to="pairs" class="md-primary">Currency</md-button>
-          <md-button to="globals" class="md-primary">Macroeconomic</md-button>
-          <md-button to="disclosures" class="md-primary">Disclosures</md-button>
+          <span class="flex-container-right" v-if="showMenus">
+            <md-button to="home" class="md-primary">Home</md-button>
+            <md-button to="pairs" class="md-primary">Currency</md-button>
+            <md-button to="globals" class="md-primary">Macroeconomic</md-button>
+            <md-button to="disclosures" class="md-primary">Disclosures</md-button>
+          </span>
+          <md-button class="md-icon-button md-primary" @click="showMenus = !showMenus">
+            <md-icon>menu</md-icon>
+          </md-button>
         </div>
-      </MdAppToolbar>
-      <MdAppContent>
+      </md-app-toolbar>
+      <md-app-content>
         <!-- <Header/> -->
         <br /><br /><br />
         <transition name="fade-slide-up" mode="out-in">
           <router-view></router-view>
         </transition>
         <Footer/>
-      </MdAppContent>
-    </MdApp>
+      </md-app-content>
+    </md-app>
   </div>
 </template>
 
@@ -31,6 +36,12 @@ export default {
     Header,
     Footer
   },
+  data() {
+    return {
+      showMenus: false,
+    }
+  },
+
 }
 </script>
 
@@ -59,6 +70,13 @@ export default {
   z-index: 1000;
   left: 0;
   right: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-container-right {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
 }
 .md-button {
   color: white !important;

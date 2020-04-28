@@ -69,6 +69,7 @@ export default {
 <style>
 .flex-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .paradialog {
@@ -86,8 +87,8 @@ hr.section {
   border-color: rgb(255, 129, 0);
 }
 .md-dialog {
-  width: 100%;
-  height: 90%;
+  width: 100vw;
+  height: 95vh;
   padding-top: 20px;
   max-height: 800px;
 }
@@ -95,8 +96,8 @@ hr.section {
   color: black;
 }
 .charticon {
-  max-width: 200px;
-  max-height: 150px;
+  max-width: 150px;
+  max-height: 100px;
   cursor: pointer;
 }
 </style>

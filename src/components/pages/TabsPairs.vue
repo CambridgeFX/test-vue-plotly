@@ -1,15 +1,15 @@
 <template>
   <div id="PairsTab">
     <div class="md-layout md-gutter md-alignment-top-center">
-      <div class="md-layout-item md-size-20">
+      <div class="md-layout-item md-size-25">
         <MdField>
-          <MdSelect name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currpair">
+          <MdSelect class="currselect" name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currpair">
             <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
           </MdSelect>
         </MdField>
       </div>
     </div>
-    <MdDialog :md-active.sync="showdialogspothist">
+    <MdDialog :md-active.sync="showdialogspothist" :md-fullscreen="true">
       <DialogSpotHist :title="charttype" :selectedCurr="currpair" />
       <div class="flex-container"><MdDialogActions>
         <MdButton class="md-raised md-primary" @click="showdialogspothist = false">Close</MdButton>
@@ -55,14 +55,14 @@
       <hr class="section" />
       <br />
       <div class="flex-container">
-        <MdCard md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
+        <md-card md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
           <md-ripple>
             <div @click="clickShowDialog(currchartlist[index])">
-              <MdCardHeader><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></MdCardHeader>
-              <MdCardMedia><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></MdCardMedia>
+              <md-card-header><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></md-card-header>
+              <md-card-media><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></md-card-media>
             </div>
           </md-ripple>
-        </MdCard>
+        </md-card>
       </div>
     </div>
   </div>
@@ -138,6 +138,7 @@ export default {
 <style>
 .flex-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .paradialog {
@@ -155,17 +156,23 @@ hr.section {
   border-color: rgb(255, 129, 0);
 }
 .md-dialog {
-  width: 100%;
-  height: 90%;
+  width: 100vw;
+  height: 95vh;
   padding-top: 20px;
   max-height: 800px;
 }
 .dialogbutton {
   color: black;
 }
+.currdiv {
+  width: 200px;
+}
+.currselect {
+  width: auto;
+}
 .charticon {
-  max-width: 200px;
-  max-height: 150px;
+  max-width: 150px;
+  max-height: 100px;
   cursor: pointer;
 }
 </style>

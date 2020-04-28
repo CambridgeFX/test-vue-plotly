@@ -1,9 +1,9 @@
 <template>
   <div>
     <MdDialogTitle>{{ title }}</MdDialogTitle>
-    <MdDialogContent>
+    <md-dialog-content class="md-scrollbar">
       <Plotly :data="cdataforecast" :layout="layoutforecast" :display-mode-bar="false"></Plotly>
-    </MdDialogContent>
+    </md-dialog-content>
   </div>
 </template>
 
@@ -183,7 +183,7 @@ export default {
               },
               hoverinfo: "all",
             };
-          } else if (distname == "3 TIMES OUT OF 4") {
+          } else if (distname.indexOf("3 TIMES OUT OF 4") >= 0) {
             var distdata = {
               name: distname,
               x: x,
@@ -191,12 +191,11 @@ export default {
               type: "scatter",
               mode: 'lines',
               line: {
-                color: 'rgb(62, 17, 81)',
+                color: 'rgb(162, 134, 169)',
               },
-              opacity: 0.7,
               hoverinfo: "all",
             };
-          } else if (distname == "9 TIMES OUT OF 10") {
+          } else if (distname.indexOf("9 TIMES OUT OF 10") >= 0) {
             var distdata = {
               name: distname,
               x: x,
@@ -204,12 +203,11 @@ export default {
               type: "scatter",
               mode: 'lines',
               line: {
-                color: 'rgb(62, 17, 81)',
+                color: 'rgb(228, 219, 230)',
               },
-              opacity: 0.5,
               hoverinfo: "all",
             };
-          } else if (distname == "19 TIMES OUT OF 20") {
+          } else if (distname.indexOf("19 TIMES OUT OF 20") <= 0) {
             var distdata = {
               name: distname,
               x: x,
@@ -217,9 +215,8 @@ export default {
               type: "scatter",
               mode: 'lines',
               line: {
-                color: 'rgb(62, 17, 81)',
+                color: 'rgb(239, 232, 242)',
               },
-              opacity: 0.3,
               hoverinfo: "all",
             };
           } else {
@@ -270,7 +267,7 @@ export default {
           yanchor: 'bottom',
           text: 'Source: Bloomberg, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
           showarrow: false
-        }]
+        }],
         // xaxis: {
         //   autorange: true,
         //   showgrid: false,
@@ -280,6 +277,11 @@ export default {
         //   ticks: '',
         //   showticklabels: false
         // },
+        showlegend: false,
+        legend: {"orientation": "h"},
+        hoverlabel: {
+          namelength: -1,
+        }
       }
     },
     addMonths(date, months) {

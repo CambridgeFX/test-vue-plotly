@@ -2,7 +2,7 @@
   <div>
     <MdDialogTitle>{{ title }}</MdDialogTitle>
     <MdDialogContent>
-      <div class="flex-container">
+      <div class="flex-container-fixed">
         <div><Plotly :data="cdatadist3M" :layout="layoutdist3M" :display-mode-bar="false"></Plotly></div>
         <div><Plotly :data="cdatadist6M" :layout="layoutdist6M" :display-mode-bar="false"></Plotly></div>
         <div><Plotly :data="cdatadist12M" :layout="layoutdist12M" :display-mode-bar="false"></Plotly></div>
@@ -215,7 +215,7 @@ export default {
 </script>
 
 <style>
-.flex-container {
+.flex-container-fixed {
   display: flex;
   justify-content: center;
 }
