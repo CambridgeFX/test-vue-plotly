@@ -1,68 +1,79 @@
 <template>
   <div id="PairsTab">
-    <div class="md-layout md-gutter md-alignment-top-center">
-      <div class="md-layout-item md-size-25">
-        <MdField>
-          <MdSelect class="currselect" name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currpair">
-            <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
-          </MdSelect>
-        </MdField>
-      </div>
+    <div class="viewport">
+      <md-toolbar :md-elevation="1">
+        <span class="md-title">INTRO</span>
+      </md-toolbar>
+      <p class="introtext">This page contains a series of charts grouped by currency pairs. Please select a currency pair from the drop-down-list below to reveal the chart types. Click on the chart icon to expand the view.</p>
     </div>
-    <MdDialog :md-active.sync="showdialogspothist" :md-fullscreen="true">
-      <DialogSpotHist :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogspothist = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogspotdist">
-      <DialogSpotDist :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogspotdist = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogforwardhist">
-      <DialogForwardHist :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogforwardhist = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogforwardcurve">
-      <DialogForwardCurve :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogforwardcurve = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogvolatility">
-      <DialogVolatility :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogvolatility = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogspotmoves">
-      <DialogSpotMoves :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogspotmoves = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <MdDialog :md-active.sync="showdialogforecastfan">
-      <DialogForecastFan :title="charttype" :selectedCurr="currpair" />
-      <div class="flex-container"><MdDialogActions>
-        <MdButton class="md-raised md-primary" @click="showdialogforecastfan = false">Close</MdButton>
-      </MdDialogActions></div>
-    </MdDialog>
-    <div v-if="currpair != ''">
-      <hr class="section" />
-      <br />
-      <div class="flex-container">
-        <md-card md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
-          <md-ripple>
-            <div @click="clickShowDialog(currchartlist[index])">
-              <md-card-header><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></md-card-header>
-              <md-card-media><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></md-card-media>
-            </div>
-          </md-ripple>
-        </md-card>
+    <div class="viewport">
+      <md-toolbar :md-elevation="1">
+        <span class="md-title">CHARTS</span>
+      </md-toolbar>
+      <div class="md-layout md-gutter md-alignment-top-center">
+        <div class="md-layout-item md-size-25">
+          <MdField>
+            <MdSelect class="currselect" name="currpair" id="currpair" placeholder="Select Currency Pair" v-model="currpair">
+              <MdOption v-for="curr in currpairlist" :key="curr" :value="curr">{{ curr }}</MdOption>
+            </MdSelect>
+          </MdField>
+        </div>
+      </div>
+      <MdDialog :md-active.sync="showdialogspothist" :md-fullscreen="true">
+        <DialogSpotHist :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogspothist = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogspotdist">
+        <DialogSpotDist :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogspotdist = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogforwardhist">
+        <DialogForwardHist :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogforwardhist = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogforwardcurve">
+        <DialogForwardCurve :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogforwardcurve = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogvolatility">
+        <DialogVolatility :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogvolatility = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogspotmoves">
+        <DialogSpotMoves :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogspotmoves = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <MdDialog :md-active.sync="showdialogforecastfan">
+        <DialogForecastFan :title="charttype" :selectedCurr="currpair" />
+        <div class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="showdialogforecastfan = false">Close</MdButton>
+        </MdDialogActions></div>
+      </MdDialog>
+      <div v-if="currpair != ''">
+        <hr class="section" />
+        <br />
+        <div class="flex-container">
+          <md-card md-with-hover v-for="(icon, index) in charticonnames" :key="icon">
+            <md-ripple>
+              <div @click="clickShowDialog(currchartlist[index])">
+                <md-card-header><a href="#" @click.prevent="clickShowDialog(currchartlist[index])">{{ currchartlist[index] }}</a><br /></md-card-header>
+                <md-card-media><img class="charticon" @click="clickShowDialog(currchartlist[index])" :src="'../../static/icons/' + currpair + icon + '.png'" /></md-card-media>
+              </div>
+            </md-ripple>
+          </md-card>
+        </div>
       </div>
     </div>
   </div>

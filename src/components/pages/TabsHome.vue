@@ -1,6 +1,22 @@
 <template>
   <div id="HomeTab">
-    <h3>Dashboard here</h3>
+    <div class="viewport">
+      <md-toolbar :md-elevation="1">
+        <span class="md-title">INTRO</span>
+      </md-toolbar>
+      <p class="introtext">Welcome to <b>Cambridge Global Payments Market Analysis Dashboard</b>. Please go to the following sections for more market information:</p>
+      <md-list>
+        <md-list-item>
+          <span class="md-list-item-text">Currency - Current and historic charts and graphs concerning specified currency pair.</span>
+        </md-list-item>
+        <md-list-item>
+          <span class="md-list-item-text">Macroeconomic - Current and historic charts and graphs concerning global market conditions.</span>
+        </md-list-item>
+        <md-list-item>
+          <span class="md-list-item-text">Disclosures - Legal and compliance disclosures.</span>
+        </md-list-item>
+      </md-list>
+    </div>
   </div>
 </template>
 
@@ -87,5 +103,19 @@ hr.section {
   width: 200px;
   height: 150px;
   cursor: pointer;
+}
+.viewport {
+  width: 100vw;
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  border: 1px solid rgba(#000, .12);
+  padding-bottom: 10px;
+}
+p.introtext {
+  font-size: 16px;
+  text-align: left !important;
+  padding-left: 15px;
 }
 </style>

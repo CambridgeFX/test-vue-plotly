@@ -1,7 +1,7 @@
 {
   "ID": "DataMasterFile",
-  "DateStamp": "03/30/2020",
-  "Period": "March 2020",
+  "DateStamp": "05/04/2020",
+  "Period": "April 2020",
   "PeriodYear": "2020",
   "Pairs": ["AUDUSD", "CADJPY", "EURCAD", "EURGBP", "EURMXN", "EURUSD", "GBPCAD", "USDCAD"]
 }

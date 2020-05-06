@@ -53,6 +53,10 @@
       <br /><br />
       <div ref="chartglobalunemplrate"><Plotly :data="cdatalglobalunemplrate" :layout="layoutglobalunemplrate" :display-mode-bar="false"></Plotly></div>
       <br /><br />
+      <div ref="chartglobalwti"><Plotly :data="cdatalglobalwti" :layout="layoutglobalwti" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
+      <div ref="chartglobalcpi"><Plotly :data="cdatalglobalcpi" :layout="layoutglobalcpi" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
       <div><span>Data last updated: {{ jsondatamaster.DateStamp }} </span></div>
     </div>
   </div>
@@ -85,6 +89,8 @@ export default {
       // Global JSON Data
       jsondataglobalfedfunds: null,
       jsondataglobalunemplrate: null,
+      jsondataglobalwti: null,
+      jsondataglobalcpi: null,
       
       // Chart data and layout objects
       cdataspot: [{
@@ -172,6 +178,22 @@ export default {
       layoutglobalunemplrate: {
         title: 'USDCAD 5 Yr Spot'
       },
+      cdatalglobalwti: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalwti: {
+        title: 'USDCAD 5 Yr Spot'
+      },
+      cdatalglobalcpi: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalcpi: {
+        title: 'USDCAD 5 Yr Spot'
+      },
       // Other data
       loaded: false,
       currpairlist: data_master.Pairs,
@@ -244,6 +266,16 @@ export default {
       }).catch((error) => {
         console.log("Error", error);
       });
+      html2canvas(vc.$refs.chartglobalwti).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_WTI.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartglobalcpi).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_CPI.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
     },
     saveAs(uri, filename) {
       var link = document.createElement('a');
@@ -283,6 +315,8 @@ export default {
       var fpathforecast = "";
       var fpathglobalfedfunds = "";
       var fpathglobalunemplrate = "";
+      var fpathglobalwti = "";
+      var fpathglobalcpi = "";
       let self = this;
 
       this.loaded = false;
@@ -304,6 +338,8 @@ export default {
         
         fpathglobalfedfunds = "../../static/data/global_fedfundsrate.json";
         fpathglobalunemplrate = "../../static/data/global_unemploymentrate.json";
+        fpathglobalwti = "../../static/data/global_WTI.json";
+        fpathglobalcpi = "../../static/data/global_CPI.json";
       }
 
       const axiosspot = axios.get(fpathspot);
@@ -316,8 +352,10 @@ export default {
       
       const axiosglobalfedfunds = axios.get(fpathglobalfedfunds);
       const axiosglobalunemplrate = axios.get(fpathglobalunemplrate);
+      const axiosglobalwti = axios.get(fpathglobalwti);
+      const axiosglobalcpi = axios.get(fpathglobalcpi);
 
-      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast, axiosglobalfedfunds, axiosglobalunemplrate]).then(axios.spread((...responses) => {
+      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast, axiosglobalfedfunds, axiosglobalunemplrate, axiosglobalwti, axiosglobalcpi]).then(axios.spread((...responses) => {
         this.jsondataspot = responses[0].data;
         this.jsondataforward = responses[1].data;
         this.jsondataforwardcurve = responses[2].data;
@@ -328,6 +366,8 @@ export default {
 
         this.jsondataglobalfedfunds = responses[7].data;
         this.jsondataglobalunemplrate = responses[8].data;
+        this.jsondataglobalwti = responses[9].data;
+        this.jsondataglobalcpi = responses[10].data;
         this.loadJSONData();
       })).catch(errors => {
         console.log(errors);
@@ -1032,6 +1072,130 @@ export default {
           showarrow: false
         }]
       }
+
+      // WTI
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalwti) {
+        x.push(this.jsondataglobalwti[i].date);
+        y.push(this.jsondataglobalwti[i].value);
+      }
+      chartlbl = 'Crude Oil WTI'
+      this.cdatalglobalwti = [{
+        x: x,
+        y: y,
+        type: 'scatter',
+        line: {
+          color: 'rgb(62, 17, 81)'
+        },
+      }]
+      this.layoutglobalwti = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Price per barrel',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'FRED Economic Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
+      // CPI
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalcpi) {
+        x.push(this.jsondataglobalcpi[i].date);
+        y.push(this.jsondataglobalcpi[i].value);
+      }
+      chartlbl = 'CPI for All Urban Consumers'
+      this.cdatalglobalcpi = [{
+        x: x,
+        y: y,
+        type: 'scatter',
+        line: {
+          color: 'rgb(62, 17, 81)'
+        },
+      }]
+      this.layoutglobalcpi = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %d, %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'CPI',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Bureau of Labor Statistics Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
+
     }
   }
 }
