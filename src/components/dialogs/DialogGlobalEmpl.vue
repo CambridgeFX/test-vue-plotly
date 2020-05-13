@@ -2,7 +2,7 @@
   <div>
     <MdDialogTitle>{{ title }}</MdDialogTitle>
     <MdDialogContent>
-      <Plotly :data="cdatalglobalunemplrate" :layout="layoutglobalunemplrate" :display-mode-bar="false"></Plotly>
+      <Plotly :data="cdatalglobalempl" :layout="layoutglobalempl" :display-mode-bar="false"></Plotly>
     </MdDialogContent>
   </div>
 </template>
@@ -14,7 +14,7 @@ import axios from 'axios'
 import data_master from '../../../static/data/data_master.json'
 
 export default {
-  name: 'DialogGlobalUnemplRate',
+  name: 'DialogGlobalEmpl',
   props: {
     title: String,
   },
@@ -25,14 +25,14 @@ export default {
     return {
       // JSON Data
       jsondatamaster: data_master,
-      jsondataglobalunemplrate: null,
+      jsondataglobalempl: null,
       // Chart data and layout objects
-      cdatalglobalunemplrate: [{
+      cdatalglobalempl: [{
         x: [],
         y: [],
         type: 'scatter'
       }],
-      layoutglobalunemplrate: {
+      layoutglobalempl: {
         title: 'USDCAD Forward Point History'
       },
       // Other data
@@ -57,17 +57,17 @@ export default {
       // Use Axios to retrieve JSON contents
       var selected = this.selectedCurr;
       var horizon = this.selectedHorizon;
-      var fpathglobalunemplrate = "";
+      var fpathglobalempl = "";
       let self = this;
 
       this.loaded = false;
 
-      fpathglobalunemplrate = "../../static/data/global_unemploymentrate.json";
+      fpathglobalempl = "../../static/data/global_employment.json";
 
-      const axiosglobalunemplrate = axios.get(fpathglobalunemplrate);
+      const axiosglobalempl = axios.get(fpathglobalempl);
       
-      axios.all([axiosglobalunemplrate]).then(axios.spread((...responses) => {
-        this.jsondataglobalunemplrate = responses[0].data;
+      axios.all([axiosglobalempl]).then(axios.spread((...responses) => {
+        this.jsondataglobalempl = responses[0].data;
         this.loadJSONData();
       })).catch(errors => {
         console.log(errors);
@@ -89,12 +89,12 @@ export default {
       // Fed fund rates
       x = [];
       y = [];
-      for(var i in this.jsondataglobalunemplrate) {
-        x.push(this.jsondataglobalunemplrate[i].date);
-        y.push(this.jsondataglobalunemplrate[i].value);
+      for(var i in this.jsondataglobalempl) {
+        x.push(this.jsondataglobalempl[i].date);
+        y.push(this.jsondataglobalempl[i].value);
       }
-      chartlbl = 'Canada Unemployment Rate'
-      this.cdatalglobalunemplrate = [{
+      chartlbl = 'Canada Employment'
+      this.cdatalglobalempl = [{
         x: x,
         y: y,
         type: 'scatter',
@@ -102,7 +102,7 @@ export default {
           color: 'rgb(62, 17, 81)'
         },
       }]
-      this.layoutglobalunemplrate = {
+      this.layoutglobalempl = {
         title: {
           text: chartlbl,
           font: {
@@ -124,7 +124,7 @@ export default {
         },
         yaxis: {
           title: {
-            text: 'Unemployment Rate %',
+            text: 'Employment (thousands)',
             font: {
               family: 'Roboto',
               size: 16,

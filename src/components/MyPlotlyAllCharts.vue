@@ -51,7 +51,13 @@
       <br /><br />
       <div ref="chartglobalfedfunds"><Plotly :data="cdatalglobalfedfunds" :layout="layoutglobalfedfunds" :display-mode-bar="false"></Plotly></div>
       <br /><br />
+      <div ref="chartglobalempl"><Plotly :data="cdatalglobalempl" :layout="layoutglobalempl" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
+      <div ref="chartglobalemplchange"><Plotly :data="cdatalglobalemplchange" :layout="layoutglobalemplchange" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
       <div ref="chartglobalunemplrate"><Plotly :data="cdatalglobalunemplrate" :layout="layoutglobalunemplrate" :display-mode-bar="false"></Plotly></div>
+      <br /><br />
+      <div ref="chartglobalunemplratechange"><Plotly :data="cdatalglobalunemplratechange" :layout="layoutglobalunemplratechange" :display-mode-bar="false"></Plotly></div>
       <br /><br />
       <div ref="chartglobalwti"><Plotly :data="cdatalglobalwti" :layout="layoutglobalwti" :display-mode-bar="false"></Plotly></div>
       <br /><br />
@@ -88,7 +94,10 @@ export default {
       jsondataforecast: null,
       // Global JSON Data
       jsondataglobalfedfunds: null,
+      jsondataglobalempl: null,
+      jsondataglobalemplchange: null,
       jsondataglobalunemplrate: null,
+      jsondataglobalunemplratechange: null,
       jsondataglobalwti: null,
       jsondataglobalcpi: null,
       
@@ -170,12 +179,36 @@ export default {
       layoutglobalfedfunds: {
         title: 'USDCAD 5 Yr Spot'
       },
+      cdatalglobalempl: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalempl: {
+        title: 'USDCAD 5 Yr Spot'
+      },
+      cdatalglobalemplchange: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalemplchange: {
+        title: 'USDCAD 5 Yr Spot'
+      },
       cdatalglobalunemplrate: [{
         x: [],
         y: [],
         type: 'scatter'
       }],
       layoutglobalunemplrate: {
+        title: 'USDCAD 5 Yr Spot'
+      },
+      cdatalglobalunemplratechange: [{
+        x: [],
+        y: [],
+        type: 'scatter'
+      }],
+      layoutglobalunemplratechange: {
         title: 'USDCAD 5 Yr Spot'
       },
       cdatalglobalwti: [{
@@ -261,8 +294,23 @@ export default {
       }).catch((error) => {
         console.log("Error", error);
       });
+      html2canvas(vc.$refs.chartglobalempl).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_empl.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartglobalemplchange).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_emplchange.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
       html2canvas(vc.$refs.chartglobalunemplrate).then(canvas => {
         this.saveAs(canvas.toDataURL(), 'global_unemplrate.png');
+      }).catch((error) => {
+        console.log("Error", error);
+      });
+      html2canvas(vc.$refs.chartglobalunemplratechange).then(canvas => {
+        this.saveAs(canvas.toDataURL(), 'global_unemplratechange.png');
       }).catch((error) => {
         console.log("Error", error);
       });
@@ -314,7 +362,10 @@ export default {
       var fpathdistcalc = "";
       var fpathforecast = "";
       var fpathglobalfedfunds = "";
+      var fpathglobalempl = "";
+      var fpathglobalemplchange = "";
       var fpathglobalunemplrate = "";
+      var fpathglobalunemplratechange = "";
       var fpathglobalwti = "";
       var fpathglobalcpi = "";
       let self = this;
@@ -337,7 +388,10 @@ export default {
         fpathforecast = "../../static/data/forecast_" + selected.toLowerCase() + ".json";
         
         fpathglobalfedfunds = "../../static/data/global_fedfundsrate.json";
+        fpathglobalempl = "../../static/data/global_employment.json";
+        fpathglobalemplchange = "../../static/data/global_employmentchange.json";
         fpathglobalunemplrate = "../../static/data/global_unemploymentrate.json";
+        fpathglobalunemplratechange = "../../static/data/global_unemploymentratechange.json";
         fpathglobalwti = "../../static/data/global_WTI.json";
         fpathglobalcpi = "../../static/data/global_CPI.json";
       }
@@ -351,11 +405,14 @@ export default {
       const axiosforecast = axios.get(fpathforecast);
       
       const axiosglobalfedfunds = axios.get(fpathglobalfedfunds);
+      const axiosglobalempl = axios.get(fpathglobalempl);
+      const axiosglobalemplchange = axios.get(fpathglobalemplchange);
       const axiosglobalunemplrate = axios.get(fpathglobalunemplrate);
+      const axiosglobalunemplratechange = axios.get(fpathglobalunemplratechange);
       const axiosglobalwti = axios.get(fpathglobalwti);
       const axiosglobalcpi = axios.get(fpathglobalcpi);
 
-      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast, axiosglobalfedfunds, axiosglobalunemplrate, axiosglobalwti, axiosglobalcpi]).then(axios.spread((...responses) => {
+      axios.all([axiosspot, axiosforward, axiosforwardcurve, axiosspothist, axiosvolatility, axiosdistcalc, axiosforecast, axiosglobalfedfunds, axiosglobalempl, axiosglobalemplchange, axiosglobalunemplrate, axiosglobalunemplratechange, axiosglobalwti, axiosglobalcpi]).then(axios.spread((...responses) => {
         this.jsondataspot = responses[0].data;
         this.jsondataforward = responses[1].data;
         this.jsondataforwardcurve = responses[2].data;
@@ -365,9 +422,12 @@ export default {
         this.jsondataforecast = responses[6].data;
 
         this.jsondataglobalfedfunds = responses[7].data;
-        this.jsondataglobalunemplrate = responses[8].data;
-        this.jsondataglobalwti = responses[9].data;
-        this.jsondataglobalcpi = responses[10].data;
+        this.jsondataglobalempl = responses[8].data;
+        this.jsondataglobalemplchange = responses[9].data;
+        this.jsondataglobalunemplrate = responses[10].data;
+        this.jsondataglobalunemplratechange = responses[11].data;
+        this.jsondataglobalwti = responses[12].data;
+        this.jsondataglobalcpi = responses[13].data;
         this.loadJSONData();
       })).catch(errors => {
         console.log(errors);
@@ -1012,6 +1072,128 @@ export default {
         }]
       }
 
+      // Employment
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalempl) {
+        x.push(this.jsondataglobalempl[i].date);
+        y.push(this.jsondataglobalempl[i].value);
+      }
+      chartlbl = 'Canada Employment'
+      this.cdatalglobalempl = [{
+        x: x,
+        y: y,
+        type: 'scatter',
+        line: {
+          color: 'rgb(62, 17, 81)'
+        },
+      }]
+      this.layoutglobalempl = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Employment (thousands)',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Statistics Canada Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
+      // Employment Change
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalemplchange) {
+        x.push(this.jsondataglobalemplchange[i].date);
+        y.push(this.jsondataglobalemplchange[i].value);
+      }
+      chartlbl = 'Canada Employment Changes'
+      this.cdatalglobalemplchange = [{
+        x: x,
+        y: y,
+        type: 'bar',
+        marker: {
+          color: 'rgb(62, 17, 81)'
+        }
+      }]
+      this.layoutglobalemplchange = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Employment Changes (thousands)',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Statistics Canada Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
       // Unemployment Rate
       x = [];
       y = [];
@@ -1019,7 +1201,7 @@ export default {
         x.push(this.jsondataglobalunemplrate[i].date);
         y.push(this.jsondataglobalunemplrate[i].value);
       }
-      chartlbl = 'Unemployment Rate'
+      chartlbl = 'Canada Unemployment Rate'
       this.cdatalglobalunemplrate = [{
         x: x,
         y: y,
@@ -1048,11 +1230,11 @@ export default {
               color: '#350942'
             }
           },
-          tickformat: '%B %d, %Y'
+          tickformat: '%B %Y'
         },
         yaxis: {
           title: {
-            text: 'Unemployment Rate',
+            text: 'Unemployment Rate %',
             font: {
               family: 'Roboto',
               size: 16,
@@ -1068,7 +1250,68 @@ export default {
           xanchor: 'right',
           y: 1,
           yanchor: 'bottom',
-          text: 'FRED Economic Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          text: 'Statistics Canada Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
+          showarrow: false
+        }]
+      }
+
+      // Unemployment Rate Change
+      x = [];
+      y = [];
+      for(var i in this.jsondataglobalunemplratechange) {
+        x.push(this.jsondataglobalunemplratechange[i].date);
+        y.push(this.jsondataglobalunemplratechange[i].value);
+      }
+      chartlbl = 'Canada Unemployment Rate Changes'
+      this.cdatalglobalunemplratechange = [{
+        x: x,
+        y: y,
+        type: 'bar',
+        marker: {
+          color: 'rgb(62, 17, 81)'
+        }
+      }]
+      this.layoutglobalunemplratechange = {
+        height: 800,
+        width: 1400,
+        title: {
+          text: chartlbl,
+          font: {
+            family: 'Roboto',
+            size: 18,
+            color: '#350942'
+          }
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '%B %Y'
+        },
+        yaxis: {
+          title: {
+            text: 'Unemployment Rate Change %',
+            font: {
+              family: 'Roboto',
+              size: 16,
+              color: '#350942'
+            }
+          },
+          tickformat: '.2f'
+        },
+        annotations: [{
+          xref: 'paper',
+          yref: 'paper',
+          x: 1,
+          xanchor: 'right',
+          y: 1,
+          yanchor: 'bottom',
+          text: 'Statistics Canada Data, Cambridge Calculations, ' + this.jsondatamaster.PeriodYear,
           showarrow: false
         }]
       }
