@@ -19,6 +19,7 @@
     "vue-material": "^1.0.0-beta-11",
     "vue-plotly": "^1.0.1",
     "vue-router": "^3.0.1",
+    "vue-rss-feed": "^0.2.4",
     "vuetify": "^2.2.3"
   },
   "devDependencies": {

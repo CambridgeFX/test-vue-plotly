@@ -1,0 +1,30 @@
+{
+  "datestamp": "05/26/2020",
+  "rsslist": [
+    {
+      "name": "Bank of Canada News",
+      "type": "News",
+      "path": "https://www.bankofcanada.ca/feed/?utility=news"
+    },
+    {
+      "name": "Bank of Canada Press Releases",
+      "type": "Blogs",
+      "path": "https://www.bankofcanada.ca/feed/?content_type=press-releases"
+    },
+    {
+      "name": "STATSCAN The Daily",
+      "type": "Indices",
+      "path": "https://www150.statcan.gc.ca/n1/rss/dai-quo/18-eng.atom"
+    },
+    {
+      "name": "FRED Blog",
+      "type": "Blogs",
+      "path": "http://fredblog.stlouisfed.org/feed/"
+    },
+    {
+      "name": "IMF Blog",
+      "type": "Blogs",
+      "path": "http://blog-imfdirect.imf.org/feed/"
+    }
+  ]
+}

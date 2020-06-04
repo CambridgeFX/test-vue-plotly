@@ -18,7 +18,7 @@
       </md-list>
     </div>
     <div class="flex-container">
-      <div class="viewport-half">
+      <div id="quickcharts" class="viewport-half">
         <md-toolbar :md-elevation="1">
           <span class="md-title">QUICK CHARTS</span>
         </md-toolbar>
@@ -49,28 +49,23 @@
           </div>
         </div>
       </div>
-      <div class="viewport-half">
+      <div id="quicknews" class="viewport-half">
         <md-toolbar :md-elevation="1">
-          <span class="md-title">QUICK NEWS</span>
+          <span class="md-title leftalign" style="flex: 1">QUICK NEWS</span>
+          <div class="md-layout-item md-size-30 rightalign">
+            <MdField>
+              <MdSelect class="currselect" name="rssselect" id="rssselect" placeholder="Select RSS Feed to view" v-model="rsspath">
+                <MdOption v-for="rss in rsslist" :key="rss.path" :value="rss.path">{{ rss.name }}</MdOption>
+              </MdSelect>
+            </MdField>
+          </div>
         </md-toolbar>
-        <md-dialog :md-active.sync="showdialognews">
-          <md-dialog-title>Headline 1 by Karl Schamotta</md-dialog-title>
-          <md-dialog-content>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>
-          </md-dialog-content>
-        </md-dialog>
-        <md-list>
-          <md-list-item>
-            <div @click="clickShowNewsDialog(newslist[0])"><span class="md-list-item-text newsheader">Headline 1</span></div>
-          </md-list-item>
-          <md-list-item>
-            <span class="md-list-item-text">Headline 2</span>
-          </md-list-item>
-          <md-list-item>
-            <span class="md-list-item-text">Headline 3</span>
-          </md-list-item>
-        </md-list>
+        <div v-if="rsspath != ''">
+          <VueRssFeed :feedUrl="rsspath" :name="name" :limit="limit"/>
+        </div>
+        <div v-if="rsspath != ''" class="flex-container"><MdDialogActions>
+          <MdButton class="md-raised md-primary" @click="increaseLimit">More ...</MdButton>
+        </MdDialogActions></div>
       </div>
     </div>
   </div>
@@ -79,11 +74,15 @@
 <script>
 import DialogSpotHist from '@/components/dialogs/DialogSpotHist'
 import DialogGlobalFedFunds from '@/components/dialogs/DialogGlobalFedFunds'
+import VueRssFeed from 'vue-rss-feed'
+// Import data master at the beginning!
+import data_rssmaster from '../../../static/data/data_rssmaster.json'
 export default {
   name: 'TabsHome',
   components: {
     DialogSpotHist,
     DialogGlobalFedFunds,
+    VueRssFeed,
   },
   data() {
     return {
@@ -93,15 +92,36 @@ export default {
       showdialogfedfunds: false,
       showdialognews: false,
       currchartlist: ['USDCAD Spot', 'Federal Funds'],
-      charticonnames: ['USDCAD_spothist', 'GLOBAL_fedfunds'],
-      newslist: ['test'],
+      charticonnames: ['USDCAD_spothist', 'global_fedfunds'],
       charttype: '',
       newstype: '',
       currpair: 'USDCAD',
-      // currpairlist: data_master.Pairs,
+      feedUrl: "http://blog-imfdirect.imf.org/feed/",
+      name: '',
+      limit: 3,
+      rsslist: data_rssmaster.rsslist,
+      rsspath: '',
     }
   },
+  // mounted() {
+  //   this.scrollEvent = window.addEventListener("scroll", () => {
+  //     if (
+  //       window.innerHeight + window.scrollY >=
+  //       document.getElementById('quicknews').offsetHeight - 100
+  //     ) {
+  //       this.limit = this.limit + 3;
+  //     }
+  //   });
+  // },
+  watch: {
+    rsspath: function(oldvalue, newvalue) {
+      this.limit = 3;
+    },
+  },
   methods: {
+    increaseLimit() {
+      this.limit += 3;
+    },
     clickShowDialog: function(mytitle) {
       this.charttype = mytitle;
       if (this.charttype == 'USDCAD Spot') {
@@ -125,6 +145,7 @@ export default {
 <style>
 .flex-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .paradialog {
@@ -146,6 +167,15 @@ hr.section {
   height: 90%;
   padding-top: 20px;
   max-height: 800px;
+}
+.leftalign {
+  text-align: left !important;
+}
+.rightalign {
+  text-align: right !important;
+}
+.centeralign {
+  text-align: center !important;
 }
 .dialogbutton {
   color: black;
